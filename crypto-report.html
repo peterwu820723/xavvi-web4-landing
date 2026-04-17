@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xavvi AI Research — 2026 Crypto Market Intelligence Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050810;
+    --bg2: #0a0f1e;
+    --bg3: #0d1428;
+    --blue: #3b82f6;
+    --blue-dark: #1d4ed8;
+    --purple: #8b5cf6;
+    --gold: #f59e0b;
+    --green: #10b981;
+    --red: #ef4444;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --border: rgba(59,130,246,0.2);
+    --card: rgba(10,15,35,0.8);
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── LANGUAGE CONTROL ─── */
+  body.lang-zh [lang="en"] { display: none !important; }
+  body.lang-en [lang="zh"] { display: none !important; }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(5,8,16,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 clamp(16px, 4vw, 48px);
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 16px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-size: 16px;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap;
+  }
+
+  .nav-center {
+    text-align: center;
+    flex: 1;
+  }
+
+  .nav-subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .lang-switcher {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .lang-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .lang-btn.active {
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    border-color: transparent;
+    color: #fff;
+  }
+
+  .lang-btn:hover:not(.active) {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(60px, 10vw, 120px) clamp(16px, 4vw, 48px);
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(59,130,246,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(139,92,246,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 80% 20%, rgba(245,158,11,0.06) 0%, transparent 50%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.3);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--blue);
+    margin-bottom: 28px;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--blue);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 2vw, 20px);
+    color: var(--text-muted);
+    margin-bottom: 52px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: clamp(16px, 3vw, 48px);
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .hero-stat-num {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold), #fcd34d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+    max-width: 120px;
+  }
+
+  .hero-divider {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--border), transparent);
+    align-self: center;
+  }
+
+  .hero-date {
+    margin-top: 48px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    padding: clamp(60px, 8vw, 100px) clamp(16px, 4vw, 48px);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: clamp(24px, 3.5vw, 42px);
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .section-title-sep {
+    color: var(--text-muted);
+    font-weight: 300;
+    margin: 0 12px;
+  }
+
+  .section-desc {
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-bottom: 48px;
+    font-size: 16px;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .card:hover {
+    border-color: rgba(59,130,246,0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(59,130,246,0.1);
+  }
+
+  /* ─── SECTION 1: LEGISLATION ─── */
+  .s1 { background: var(--bg2); }
+
+  .leg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .leg-grid { grid-template-columns: 1fr; }
+  }
+
+  .leg-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    transition: all 0.3s;
+  }
+
+  .leg-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(59,130,246,0.1);
+  }
+
+  .leg-card.clarity { border-top: 3px solid var(--gold); }
+  .leg-card.genius { border-top: 3px solid var(--green); }
+
+  .leg-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    gap: 12px;
+  }
+
+  .leg-act-name {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .status-pending {
+    background: rgba(245,158,11,0.15);
+    border: 1px solid rgba(245,158,11,0.4);
+    color: var(--gold);
+  }
+
+  .status-signed {
+    background: rgba(16,185,129,0.15);
+    border: 1px solid rgba(16,185,129,0.4);
+    color: var(--green);
+  }
+
+  .leg-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .leg-points li {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .leg-points li::before {
+    content: '▸';
+    color: var(--blue);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .leg-points li strong { color: var(--text); }
+
+  .token-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 12px 0;
+  }
+
+  .token-tag {
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.3);
+    color: var(--blue);
+  }
+
+  .warning-box {
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #fcd34d;
+    margin: 16px 0;
+  }
+
+  .source-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-top: 12px;
+    transition: color 0.2s;
+  }
+
+  .source-link:hover { color: var(--blue); }
+
+  /* ─── SECTION 2: REGULATORS ─── */
+  .s2 { background: var(--bg); }
+
+  .reg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .reg-grid { grid-template-columns: 1fr; }
+  }
+
+  .reg-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    transition: all 0.3s;
+  }
+
+  .reg-card:hover {
+    border-color: rgba(139,92,246,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(139,92,246,0.08);
+  }
+
+  .reg-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .avatar-blue {
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+  }
+
+  .avatar-purple {
+    background: linear-gradient(135deg, var(--purple), #ec4899);
+  }
+
+  .reg-name { font-size: 18px; font-weight: 700; }
+  .reg-title { font-size: 13px; color: var(--blue); margin-top: 2px; }
+
+  .quote-box {
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid var(--purple);
+    padding: 16px 20px;
+    border-radius: 0 10px 10px 0;
+    margin-bottom: 20px;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .stat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.25);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .stat-pill-num {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--red);
+  }
+
+  .safe-harbor-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--green);
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  /* ─── SECTION 3: INSTITUTIONS ─── */
+  .s3 { background: var(--bg2); }
+
+  .inst-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 1024px) {
+    .inst-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 520px) {
+    .inst-grid { grid-template-columns: 1fr; }
+  }
+
+  .inst-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .inst-card:hover {
+    border-color: rgba(59,130,246,0.5);
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(59,130,246,0.12);
+  }
+
+  .inst-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin: 0 auto 16px;
+    font-weight: 700;
+  }
+
+  .inst-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .inst-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  .inst-highlight {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .davos-banner {
+    background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(59,130,246,0.12));
+    border: 1px solid rgba(139,92,246,0.3);
+    border-radius: var(--radius);
+    padding: 28px 36px;
+    text-align: center;
+  }
+
+  .davos-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  .davos-label {
+    font-size: 12px;
+    color: var(--purple);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .davos-quote {
+    font-size: clamp(15px, 2vw, 19px);
+    font-weight: 500;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* ─── SECTION 4: MARKET DATA ─── */
+  .s4 { background: var(--bg); }
+
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 1024px) {
+    .data-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 520px) {
+    .data-grid { grid-template-columns: 1fr; }
+  }
+
+  .data-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .data-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+
+  .data-card.btc-price::before { background: linear-gradient(90deg, var(--gold), #fcd34d); }
+  .data-card.etf-flow::before { background: linear-gradient(90deg, var(--blue), #60a5fa); }
+  .data-card.inst-alloc::before { background: linear-gradient(90deg, var(--purple), #a78bfa); }
+  .data-card.target::before { background: linear-gradient(90deg, var(--green), #34d399); }
+
+  .data-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(59,130,246,0.1);
+  }
+
+  .data-icon { font-size: 28px; margin-bottom: 12px; }
+
+  .data-num {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .data-card.btc-price .data-num { color: var(--gold); }
+  .data-card.etf-flow .data-num { color: var(--blue); }
+  .data-card.inst-alloc .data-num { color: var(--purple); }
+  .data-card.target .data-num { color: var(--green); }
+
+  .data-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ─── SVG CHART ─── */
+  .chart-container {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+  }
+
+  .chart-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: var(--text-muted);
+  }
+
+  .chart-svg-wrap {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .chart-svg-wrap svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .chart-label {
+    font-size: 11px;
+    fill: #64748b;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .chart-month {
+    font-size: 11px;
+    fill: #64748b;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .chart-line {
+    fill: none;
+    stroke: url(#lineGrad);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .chart-area {
+    fill: url(#areaGrad);
+  }
+
+  /* ─── SECTION 5: XAVVI STRATEGY ─── */
+  .s5 {
+    background: var(--bg2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .s5::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .strategy-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .strategy-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    transition: all 0.3s;
+  }
+
+  .strategy-card:hover {
+    border-color: rgba(16,185,129,0.4);
+    transform: translateX(8px);
+    box-shadow: 0 8px 40px rgba(16,185,129,0.08);
+  }
+
+  .strategy-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(59,130,246,0.2));
+    border: 1px solid rgba(16,185,129,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .strategy-content { flex: 1; }
+
+  .strategy-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .strategy-zh { color: var(--green); }
+  .strategy-arrow {
+    color: var(--text-muted);
+    margin: 0 6px;
+  }
+
+  .strategy-detail {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .cta-section {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 24px rgba(59,130,246,0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(59,130,246,0.5);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    background: rgba(59,130,246,0.05);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 48px clamp(16px, 4vw, 48px);
+    text-align: center;
+  }
+
+  .footer-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .footer-logo {
+    font-size: 20px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+
+  .footer-date {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  .footer-disclaimer {
+    font-size: 12px;
+    color: #475569;
+    line-height: 1.8;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .footer-sources {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 12px;
+  }
+
+  .footer-sources a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-sources a:hover { color: var(--blue); }
+
+  .footer-copy {
+    margin-top: 24px;
+    font-size: 12px;
+    color: #334155;
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* ─── GLOWING DIVIDER ─── */
+  .glow-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), var(--purple), transparent);
+    opacity: 0.4;
+  }
+</style>
+</head>
+<body class="lang-zh">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#">
+      <div class="logo-icon">X</div>
+      <span class="logo-text">Xavvi AI Research</span>
+    </a>
+    <div class="nav-center">
+      <div class="nav-subtitle">
+        <span lang="zh">加密货币市场深度报告 · April 13, 2026</span>
+        <span lang="en">Crypto Market Intelligence Report · April 13, 2026</span>
+      </div>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btn-zh" onclick="setLang('zh')">中文</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      <span lang="zh">2026年4月独家市场报告</span>
+      <span lang="en">Exclusive Market Report · April 2026</span>
+    </div>
+
+    <h1>
+      <span lang="zh">2026年加密货币市场全景报告</span>
+      <span lang="en">2026 Crypto Market Intelligence Report</span>
+    </h1>
+
+    <div class="hero-sub">
+      <span lang="zh">监管破冰 · 机构入场 · AI融合 · 市场行情</span>
+      <span lang="en">Regulatory Clarity · Institutional Entry · AI Integration · Market Data</span>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat reveal">
+        <div class="hero-stat-num">$530亿+</div>
+        <div class="hero-stat-label">
+          <span lang="zh">Bitcoin ETF 累计流入</span>
+          <span lang="en">Bitcoin ETF Total Inflows</span>
+        </div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat reveal reveal-delay-1">
+        <div class="hero-stat-num">60%</div>
+        <div class="hero-stat-label">
+          <span lang="zh">SEC 执法案件下降</span>
+          <span lang="en">SEC Enforcement Drop</span>
+        </div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat reveal reveal-delay-2">
+        <div class="hero-stat-num">56%</div>
+        <div class="hero-stat-label">
+          <span lang="zh">立法2026年底通过概率</span>
+          <span lang="en">Odds of Legislation by EOY</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-date">
+      <span lang="zh">📅 报告日期：2026年4月13日 · Xavvi AI Research 出品</span>
+      <span lang="en">📅 Report Date: April 13, 2026 · By Xavvi AI Research</span>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- SECTION 1: LEGISLATION -->
+<section class="s1">
+  <div class="container">
+    <div class="section-label reveal">
+      <span lang="zh">立法动态</span>
+      <span lang="en">Legislative Update</span>
+    </div>
+    <h2 class="section-title reveal">
+      <span lang="zh">美国立法全面提速</span>
+      <span class="section-title-sep">/</span>
+      <span lang="en">U.S. Crypto Legislation Accelerating</span>
+    </h2>
+    <p class="section-desc reveal">
+      <span lang="zh">2026年，美国国会在加密货币监管立法上迈出历史性步伐，两项关键法案正在重塑市场格局。</span>
+      <span lang="en">In 2026, the U.S. Congress is taking historic steps in crypto regulation, with two landmark bills reshaping the market landscape.</span>
+    </p>
+
+    <div class="leg-grid">
+      <!-- CLARITY Act -->
+      <div class="leg-card clarity reveal">
+        <div class="leg-card-header">
+          <div>
+            <div class="leg-act-name">CLARITY Act</div>
+            <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">
+              <span lang="zh">数字资产市场结构法案</span>
+              <span lang="en">Digital Asset Market Structure Act</span>
+            </div>
+          </div>
+          <div class="status-badge status-pending">
+            <span lang="zh">⏳ 参议院审议中</span>
+            <span lang="en">⏳ Senate Review</span>
+          </div>
+        </div>
+
+        <ul class="leg-points">
+          <li>
+            <span lang="zh"><strong>众议院以294-134高票通过</strong></span>
+            <span lang="en"><strong>House passed 294-134</strong></span>
+          </li>
+          <li>
+            <span lang="zh"><strong>56%</strong>概率在2026年底前由总统签署成法</span>
+            <span lang="en"><strong>56%</strong> probability of presidential signature by end of 2026</span>
+          </li>
+          <li>
+            <span lang="zh">将以下资产明确定性为<strong>数字商品</strong>：</span>
+            <span lang="en">Classifies the following as <strong>digital commodities</strong>:</span>
+          </li>
+        </ul>
+
+        <div class="token-tags">
+          <span class="token-tag">₿ BTC</span>
+          <span class="token-tag">Ξ ETH</span>
+          <span class="token-tag">◎ SOL</span>
+          <span class="token-tag">✕ XRP</span>
+        </div>
+
+        <div class="warning-box">
+          ⚠️
+          <strong>Senator Lummis：</strong>
+          <span lang="zh">"若参议院不加速推进，立法可能延误4年。"</span>
+          <span lang="en">"If the Senate doesn't accelerate, legislation could be delayed 4 years."</span>
+        </div>
+
+        <a href="https://www.reuters.com" target="_blank" class="source-link">
+          🔗 <span lang="zh">来源：Reuters</span><span lang="en">Source: Reuters</span>
+        </a>
+      </div>
+
+      <!-- GENIUS Act -->
+      <div class="leg-card genius reveal reveal-delay-2">
+        <div class="leg-card-header">
+          <div>
+            <div class="leg-act-name">GENIUS Act</div>
+            <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">
+              <span lang="zh">稳定币监管法案</span>
+              <span lang="en">Stablecoin Regulatory Act</span>
+            </div>
+          </div>
+          <div class="status-badge status-signed">
+            ✅ <span lang="zh">已签署</span><span lang="en">Signed</span>
+          </div>
+        </div>
+
+        <ul class="leg-points">
+          <li>
+            <span lang="zh"><strong>美国首个稳定币联邦监管框架</strong>正式确立</span>
+            <span lang="en">Establishes <strong>America's first federal stablecoin regulatory framework</strong></span>
+          </li>
+          <li>
+            <span lang="zh">已由<strong>Trump总统</strong>正式签署，即刻生效</span>
+            <span lang="en">Formally signed into law by <strong>President Trump</strong>, effective immediately</span>
+          </li>
+          <li>
+            <span lang="zh">为稳定币发行方设立明确合规路径</span>
+            <span lang="en">Creates clear compliance pathways for stablecoin issuers</span>
+          </li>
+          <li>
+            <span lang="zh">消除数字美元领域法律不确定性</span>
+            <span lang="en">Eliminates legal uncertainty in the digital dollar space</span>
+          </li>
+          <li>
+            <span lang="zh">推动美元稳定币全球竞争力</span>
+            <span lang="en">Enhances global competitiveness of USD stablecoins</span>
+          </li>
+        </ul>
+
+        <div style="margin-top:16px;padding:16px;background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:10px;">
+          <div style="font-size:13px;color:var(--green);font-weight:600;margin-bottom:4px;">
+            <span lang="zh">🏛️ 历史意义</span><span lang="en">🏛️ Historical Significance</span>
+          </div>
+          <div style="font-size:13px;color:var(--text-muted);">
+            <span lang="zh">这是美国有史以来首部专门针对加密货币的联邦法律，标志着加密立法时代正式开启。</span>
+            <span lang="en">This is America's first-ever dedicated federal crypto law, marking the formal dawn of the crypto legislative era.</span>
+          </div>
+        </div>
+
+        <a href="https://www.congress.gov" target="_blank" class="source-link">
+          🔗 <span lang="zh">来源：Congress.gov</span><span lang="en">Source: Congress.gov</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- SECTION 2: REGULATORS -->
+<section class="s2">
+  <div class="container">
+    <div class="section-label reveal">
+      <span lang="zh">监管机构</span>
+      <span lang="en">Regulatory Bodies</span>
+    </div>
+    <h2 class="section-title reveal">
+      <span lang="zh">监管风向大逆转</span>
+      <span class="section-title-sep">/</span>
+      <span lang="en">Regulatory Winds Have Shifted</span>
+    </h2>
+    <p class="section-desc reveal">
+      <span lang="zh">从对抗到拥抱，美国监管机构在2025-2026年完成了历史性转向。</span>
+      <span lang="en">From confrontation to embrace — U.S. regulators completed a historic pivot in 2025-2026.</span>
+    </p>
+
+    <div class="reg-grid">
+      <!-- Bessent -->
+      <div class="reg-card reveal">
+        <div class="reg-header">
+          <div class="avatar avatar-blue">B</div>
+          <div>
+            <div class="reg-name">Scott Bessent</div>
+            <div class="reg-title">
+              <span lang="zh">美国财政部长</span>
+              <span lang="en">U.S. Secretary of the Treasury</span>
+            </div>
+          </div>
+        </div>
+        <div class="quote-box">
+          <span lang="zh">"尽管GENIUS Act已通过，整体监管环境依然极度不清晰，国会必须立即推进CLARITY Act，否则加密创新将大批流向海外。"</span>
+          <span lang="en">"Despite GENIUS Act passage, the overall regulatory environment remains extremely unclear. Congress must immediately advance the CLARITY Act, or crypto innovation will flee overseas en masse."</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <div style="width:8px;height:8px;background:var(--green);border-radius:50%;"></div>
+          <span style="font-size:14px;font-weight:600;color:var(--green);">
+            <span lang="zh">立场：强力支持加密立法</span>
+            <span lang="en">Stance: Strong Crypto Legislation Advocate</span>
+          </span>
+        </div>
+        <a href="https://thehill.com" target="_blank" class="source-link">
+          🔗 <span lang="zh">来源：The Hill</span><span lang="en">Source: The Hill</span>
+        </a>
+      </div>
+
+      <!-- Paul Atkins -->
+      <div class="reg-card reveal reveal-delay-2">
+        <div class="reg-header">
+          <div class="avatar avatar-purple">A</div>
+          <div>
+            <div class="reg-name">Paul Atkins</div>
+            <div class="reg-title">
+              <span lang="zh">SEC 主席</span>
+              <span lang="en">SEC Chairman</span>
+            </div>
+          </div>
+        </div>
+        <div class="quote-box">
+          <span lang="zh">"之前的加密执法设置了错误的预期。我们将把有限资源集中在对市场伤害最大的不当行为上，而不是打击合规创新。"</span>
+          <span lang="en">"Previous crypto enforcement set the wrong expectations. We will focus our limited resources on misconduct that causes the most harm to markets, not stifling compliant innovation."</span>
+        </div>
+
+        <div class="stat-pill">
+          <span class="stat-pill-num">↓60%</span>
+          <span style="font-size:13px;color:var(--text-muted);">
+            <span lang="zh">2025年执法仅13起（vs 历史峰值）</span>
+            <span lang="en">Only 13 actions in 2025 (vs. historical peak)</span>
+          </span>
+        </div>
+
+        <div style="margin-top:12px;">
+          <span class="safe-harbor-tag">🛡️ Token Safe Harbor <span lang="zh">提案</span><span lang="en">Proposed</span></span>
+        </div>
+
+        <a href="https://www.sec.gov" target="_blank" class="source-link">
+          🔗 <span lang="zh">来源：SEC.gov</span><span lang="en">Source: SEC.gov</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- SECTION 3: INSTITUTIONS -->
+<section class="s3">
+  <div class="container">
+    <div class="section-label reveal">
+      <span lang="zh">机构动态</span>
+      <span lang="en">Institutional Moves</span>
+    </div>
+    <h2 class="section-title reveal">
+      <span lang="zh">全球金融巨头集体入场</span>
+      <span class="section-title-sep">/</span>
+      <span lang="en">Global Financial Giants Enter Crypto</span>
+    </h2>
+    <p class="section-desc reveal">
+      <span lang="zh">华尔街已从观望转向行动。传统金融巨头以前所未有的速度和规模布局加密赛道。</span>
+      <span lang="en">Wall Street has moved from watching to acting. Traditional financial giants are entering crypto at unprecedented speed and scale.</span>
+    </p>
+
+    <div class="inst-grid">
+      <div class="inst-card reveal">
+        <div class="inst-logo" style="background:linear-gradient(135deg,#1e3a5f,#2563eb);">🏦</div>
+        <div class="inst-name">BlackRock</div>
+        <div class="inst-sub">
+          <span lang="zh">贝莱德 · 全球最大资管</span>
+          <span lang="en">World's Largest Asset Manager</span>
+        </div>
+        <div class="inst-highlight">
+          <span lang="zh">单日创纪录流入 $2.69亿</span>
+          <span lang="en">Record single-day inflow: $269M</span>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-muted);font-style:italic;">
+          <span lang="zh">"AI是加密的杀手级应用"</span>
+          <span lang="en">"AI is crypto's killer application"</span>
+        </div>
+      </div>
+
+      <div class="inst-card reveal reveal-delay-1">
+        <div class="inst-logo" style="background:linear-gradient(135deg,#1a3a5c,#0ea5e9);">📊</div>
+        <div class="inst-name">Fidelity</div>
+        <div class="inst-sub">
+          <span lang="zh">富达 · 投资管理巨头</span>
+          <span lang="en">Investment Management Giant</span>
+        </div>
+        <div class="inst-highlight">
+          <span lang="zh">发布2026 Look Ahead报告</span>
+          <span lang="en">Released 2026 Look Ahead Report</span>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-muted);font-style:italic;">
+          <span lang="zh">代币化将重塑传统金融结构</span>
+          <span lang="en">Tokenization will reshape traditional finance</span>
+        </div>
+      </div>
+
+      <div class="inst-card reveal reveal-delay-2">
+        <div class="inst-logo" style="background:linear-gradient(135deg,#1a2a4a,#6366f1);">🏛️</div>
+        <div class="inst-name">JPMorgan</div>
+        <div class="inst-sub">
+          <span lang="zh">摩根大通 · 华尔街领军</span>
+          <span lang="en">Wall Street's Leading Bank</span>
+        </div>
+        <div class="inst-highlight">
+          <span lang="zh">推出比特币ETF杠杆票据产品</span>
+          <span lang="en">Launched Bitcoin ETF Leverage Notes</span>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-muted);font-style:italic;">
+          <span lang="zh">首次直接向机构客户提供加密敞口</span>
+          <span lang="en">First direct crypto exposure for institutional clients</span>
+        </div>
+      </div>
+
+      <div class="inst-card reveal reveal-delay-3">
+        <div class="inst-logo" style="background:linear-gradient(135deg,#2d1b4e,#8b5cf6);">🚀</div>
+        <div class="inst-name">ARK Invest</div>
+        <div class="inst-sub">
+          <span lang="zh">木头姐 · 创新投资先锋</span>
+          <span lang="en">Cathie Wood · Innovation Pioneer</span>
+        </div>
+        <div class="inst-highlight">
+          <span lang="zh">预测BTC年底目标价 $100K+</span>
+          <span lang="en">BTC year-end target: $100K+</span>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--text-muted);font-style:italic;">
+          <span lang="zh">"人类历史上最大规模的财富迁移"</span>
+          <span lang="en">"The largest wealth transfer in human history"</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Davos Banner -->
+    <div class="davos-banner reveal">
+      <div class="davos-icon">🌐</div>
+      <div class="davos-label">
+        <span lang="zh">达沃斯世界经济论坛 2026 共识</span>
+        <span lang="en">World Economic Forum Davos 2026 Consensus</span>
+      </div>
+      <div class="davos-quote">
+        <span lang="zh">"加密技术正成为 AI 商业化落地的底层支柱基础设施，两者的融合将创造下一个十年最大的价值洼地。"</span>
+        <span lang="en">"Crypto technology is becoming the foundational infrastructure for AI commercialization. Their convergence will create the greatest value opportunity of the next decade."</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- SECTION 4: MARKET DATA -->
+<section class="s4">
+  <div class="container">
+    <div class="section-label reveal">
+      <span lang="zh">市场行情</span>
+      <span lang="en">Market Data</span>
+    </div>
+    <h2 class="section-title reveal">
+      <span lang="zh">市场数据一览</span>
+      <span class="section-title-sep">/</span>
+      <span lang="en">Market Data At A Glance</span>
+    </h2>
+    <p class="section-desc reveal">
+      <span lang="zh">关键指标显示：机构资金持续涌入，市场基本面强健，牛市结构完整。</span>
+      <span lang="en">Key metrics show: Institutional capital continues flowing in. Market fundamentals are solid. Bull market structure intact.</span>
+    </p>
+
+    <div class="data-grid">
+      <div class="data-card btc-price reveal">
+        <div class="data-icon">₿</div>
+        <div class="data-num">$72K–$75K</div>
+        <div class="data-desc">
+          <span lang="zh">比特币当前价格区间<br><small style="opacity:.7">April 2026</small></span>
+          <span lang="en">Bitcoin Current Price Range<br><small style="opacity:.7">April 2026</small></span>
+        </div>
+      </div>
+
+      <div class="data-card etf-flow reveal reveal-delay-1">
+        <div class="data-icon">📈</div>
+        <div class="data-num">$53B+</div>
+        <div class="data-desc">
+          <span lang="zh">Bitcoin ETF 累计总流入<br><small style="opacity:.7">自2024年1月起</small></span>
+          <span lang="en">Bitcoin ETF Cumulative Inflows<br><small style="opacity:.7">Since Jan 2024</small></span>
+        </div>
+      </div>
+
+      <div class="data-card inst-alloc reveal reveal-delay-2">
+        <div class="data-icon">🏦</div>
+        <div class="data-num">66–75%</div>
+        <div class="data-desc">
+          <span lang="zh">机构计划提高加密配置比例<br><small style="opacity:.7">2026年调查数据</small></span>
+          <span lang="en">Institutions Planning to Increase Crypto Allocation<br><small style="opacity:.7">2026 Survey Data</small></span>
+        </div>
+      </div>
+
+      <div class="data-card target reveal reveal-delay-3">
+        <div class="data-icon">🎯</div>
+        <div class="data-num">$100K</div>
+        <div class="data-desc">
+          <span lang="zh">机构预测2026年底目标价<br><small style="opacity:.7">预测市场中位数</small></span>
+          <span lang="en">Institutional Target Price EOY 2026<br><small style="opacity:.7">Prediction Market Median</small></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SVG Chart -->
+    <div class="chart-container reveal">
+      <div class="chart-title">
+        <span lang="zh">📊 2026年 BTC 价格走势示意（单位：千美元）</span>
+        <span lang="en">📊 BTC Price Trend 2026 (in thousands USD)</span>
+      </div>
+      <div class="chart-svg-wrap">
+        <svg viewBox="0 0 900 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#3b82f6"/>
+              <stop offset="50%" stop-color="#8b5cf6"/>
+              <stop offset="100%" stop-color="#f59e0b"/>
+            </linearGradient>
+            <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Y Axis Labels -->
+          <text class="chart-label" x="10" y="30" text-anchor="start">$100K</text>
+          <text class="chart-label" x="10" y="80" text-anchor="start">$80K</text>
+          <text class="chart-label" x="10" y="130" text-anchor="start">$60K</text>
+          <text class="chart-label" x="10" y="180" text-anchor="start">$40K</text>
+
+          <!-- Grid Lines -->
+          <line x1="55" y1="25" x2="890" y2="25" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="55" y1="75" x2="890" y2="75" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="55" y1="125" x2="890" y2="125" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <line x1="55" y1="175" x2="890" y2="175" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+          <!-- Month Labels -->
+          <text class="chart-month" x="80"  y="220" text-anchor="middle">Jan</text>
+          <text class="chart-month" x="185" y="220" text-anchor="middle">Feb</text>
+          <text class="chart-month" x="290" y="220" text-anchor="middle">Mar</text>
+          <text class="chart-month" x="395" y="220" text-anchor="middle">Apr</text>
+          <text class="chart-month" x="500" y="220" text-anchor="middle">May</text>
+          <text class="chart-month" x="605" y="220" text-anchor="middle">Jun</text>
+          <text class="chart-month" x="710" y="220" text-anchor="middle">Sep</text>
+          <text class="chart-month" x="815" y="220" text-anchor="middle">Dec</text>
+
+          <!-- Area -->
+          <path class="chart-area" d="
+            M 55 195
+            C 80 190, 100 185, 130 175
+            C 160 165, 170 155, 200 145
+            C 230 135, 255 125, 285 115
+            C 315 105, 340 100, 370 95
+            C 400 90, 420 88, 450 85
+            C 480 82, 500 80, 530 78
+            C 570 74, 610 60, 650 55
+            C 690 50, 730 45, 760 42
+            C 790 39, 830 36, 860 32
+            L 860 210
+            L 55 210
+            Z
+          "/>
+
+          <!-- Line -->
+          <path class="chart-line" d="
+            M 55 195
+            C 80 190, 100 185, 130 175
+            C 160 165, 170 155, 200 145
+            C 230 135, 255 125, 285 115
+            C 315 105, 340 100, 370 95
+            C 400 90, 420 88, 450 85
+            C 480 82, 500 80, 530 78
+            C 570 74, 610 60, 650 55
+            C 690 50, 730 45, 760 42
+            C 790 39, 830 36, 860 32
+          "/>
+
+          <!-- Current marker (Apr) -->
+          <circle cx="395" cy="95" r="6" fill="var(--gold)" stroke="#050810" stroke-width="2"/>
+          <text class="chart-label" x="395" y="82" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="600">$73K ▲</text>
+
+          <!-- Target marker (Dec) -->
+          <circle cx="860" cy="32" r="6" fill="var(--green)" stroke="#050810" stroke-width="2"/>
+          <text class="chart-label" x="860" y="20" text-anchor="middle" fill="#10b981" font-size="10" font-weight="600">$100K 🎯</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- SECTION 5: XAVVI STRATEGY -->
+<section class="s5">
+  <div class="container">
+    <div class="section-label reveal">
+      <span lang="zh">战略分析</span>
+      <span lang="en">Strategic Analysis</span>
+    </div>
+    <h2 class="section-title reveal">
+      <span lang="zh">这对 Xavvi 意味着什么</span>
+      <span class="section-title-sep">/</span>
+      <span lang="en">What This Means for Xavvi</span>
+    </h2>
+    <p class="section-desc reveal">
+      <span lang="zh">当前监管与市场格局，为 Xavvi 的 BFC/TDA 战略和 StarFi 基金打开了最佳窗口期。</span>
+      <span lang="en">The current regulatory and market landscape opens the optimal window for Xavvi's BFC/TDA strategy and the StarFi Fund.</span>
+    </p>
+
+    <div class="strategy-grid">
+      <div class="strategy-card reveal">
+        <div class="strategy-num">✅</div>
+        <div class="strategy-content">
+          <div class="strategy-title">
+            <span lang="zh"><span class="strategy-zh">SEC 转向清晰化</span><span class="strategy-arrow">→</span>BFC/TDA 合规空间大幅打开</span>
+            <span lang="en">SEC Pivot to Clarity <span class="strategy-arrow">→</span> BFC/TDA Compliance Space Dramatically Expanded</span>
+          </div>
+          <div class="strategy-detail">
+            <span lang="zh">执法下降60%、Token Safe Harbor提案，意味着创新型数字资产结构获得前所未有的监管宽容空间。</span>
+            <span lang="en">60% enforcement drop + Token Safe Harbor proposal = unprecedented regulatory tolerance for innovative digital asset structures.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="strategy-card reveal reveal-delay-1">
+        <div class="strategy-num">✅</div>
+        <div class="strategy-content">
+          <div class="strategy-title">
+            <span lang="zh"><span class="strategy-zh">CLARITY Act 接近通过</span><span class="strategy-arrow">→</span>TDA 数字商品定性有利</span>
+            <span lang="en">CLARITY Act Near Passage <span class="strategy-arrow">→</span> TDA Classification as Digital Commodity Favorable</span>
+          </div>
+          <div class="strategy-detail">
+            <span lang="zh">一旦签署，TDA（可信数据资产）将在"数字商品"框架下获得清晰法律地位，大幅降低合规风险。</span>
+            <span lang="en">Once signed, TDA (Trustable Data Assets) will gain clear legal standing under the "digital commodity" framework, dramatically reducing compliance risk.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="strategy-card reveal reveal-delay-2">
+        <div class="strategy-num">✅</div>
+        <div class="strategy-content">
+          <div class="strategy-title">
+            <span lang="zh"><span class="strategy-zh">贝莱德认证 AI × 加密</span><span class="strategy-arrow">→</span>完美印证 Xavvi 定位</span>
+            <span lang="en">BlackRock Validates AI × Crypto <span class="strategy-arrow">→</span> Perfectly Validates Xavvi's Positioning</span>
+          </div>
+          <div class="strategy-detail">
+            <span lang="zh">全球最大资管公司公开声称"AI是加密杀手级应用"，与Xavvi的AI×Web3创作者经济战略高度吻合。</span>
+            <span lang="en">The world's largest asset manager publicly states "AI is crypto's killer app" — perfectly aligned with Xavvi's AI × Web3 creator economy strategy.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="strategy-card reveal reveal-delay-3">
+        <div class="strategy-num">✅</div>
+        <div class="strategy-content">
+          <div class="strategy-title">
+            <span lang="zh"><span class="strategy-zh">机构资金涌入</span><span class="strategy-arrow">→</span>StarFi 基金最佳募资窗口期</span>
+            <span lang="en">Institutional Capital Surge <span class="strategy-arrow">→</span> StarFi Fund Optimal Fundraising Window</span>
+          </div>
+          <div class="strategy-detail">
+            <span lang="zh">$530亿+ETF流入、66-75%机构提高配置意愿，证明资本正在大规模寻找加密领域优质标的。StarFi基金的时机已至。</span>
+            <span lang="en">$53B+ ETF inflows, 66-75% institutions increasing allocation — proving capital is actively seeking quality crypto opportunities at scale. StarFi Fund's moment has arrived.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="strategy-card reveal reveal-delay-4">
+        <div class="strategy-num">✅</div>
+        <div class="strategy-content">
+          <div class="strategy-title">
+            <span lang="zh"><span class="strategy-zh">监管友好化确定</span><span class="strategy-arrow">→</span>合规布局先发优势</span>
+            <span lang="en">Regulatory Friendliness Confirmed <span class="strategy-arrow">→</span> First-Mover Compliance Advantage</span>
+          </div>
+          <div class="strategy-detail">
+            <span lang="zh">在监管框架成形前率先建立合规基础设施，将使Xavvi在竞争对手还在观望时，已完成核心赛道卡位。</span>
+            <span lang="en">Establishing compliance infrastructure before the regulatory framework solidifies gives Xavvi a decisive positioning advantage while competitors are still watching.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section reveal">
+      <a href="#" class="btn btn-primary">
+        <span lang="zh">🚀 了解 StarFi 基金</span>
+        <span lang="en">🚀 Learn About StarFi Fund</span>
+      </a>
+      <a href="mailto:peter@xavvi.com" class="btn btn-outline">
+        <span lang="zh">✉️ 联系我们</span>
+        <span lang="en">✉️ Contact Us</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚡ Xavvi AI Research</div>
+    <div class="footer-date">
+      <span lang="zh">2026年4月13日 · Los Angeles, USA</span>
+      <span lang="en">April 13, 2026 · Los Angeles, USA</span>
+    </div>
+
+    <div class="footer-disclaimer">
+      <span lang="zh">
+        ⚠️ 免责声明：本报告仅供参考，不构成任何投资建议或要约。数据来源于公开信息，报告观点仅代表研究团队分析，不代表任何法律或财务建议。投资有风险，决策需谨慎。
+      </span>
+      <span lang="en">
+        ⚠️ Disclaimer: This report is for informational purposes only and does not constitute investment advice or an offer of securities. Data is sourced from publicly available information. Views represent research team analysis only and are not legal or financial advice. Investing involves risk; proceed with caution.
+      </span>
+    </div>
+
+    <div class="footer-sources">
+      <a href="https://www.reuters.com" target="_blank">🔗 Reuters</a>
+      <a href="https://www.congress.gov" target="_blank">🔗 Congress.gov</a>
+      <a href="https://www.sec.gov" target="_blank">🔗 SEC.gov</a>
+      <a href="https://thehill.com" target="_blank">🔗 The Hill</a>
+      <a href="https://www.blackrock.com" target="_blank">🔗 BlackRock</a>
+      <a href="https://www.fidelity.com" target="_blank">🔗 Fidelity</a>
+      <a href="https://www.jpmorgan.com" target="_blank">🔗 JPMorgan</a>
+      <a href="https://ark-invest.com" target="_blank">🔗 ARK Invest</a>
+    </div>
+
+    <div class="footer-copy">
+      © 2026 Xavvi AI Research · peter@xavvi.com
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ─── LANGUAGE SWITCHER ───
+  function setLang(lang) {
+    document.body.classList.remove('lang-zh', 'lang-en');
+    document.body.classList.add('lang-' + lang);
+    document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  }
+
+  // ─── SCROLL REVEAL ───
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // ─── HERO REVEAL ON LOAD ───
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.hero .reveal').forEach(el => {
+        el.classList.add('visible');
+      });
+    }, 300);
+  });
+</script>
+</body>
+</html>

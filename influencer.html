@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="page_title">Xavvi — 网红变现平台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050810;
+      --bg2: #080d1a;
+      --blue: #3b82f6;
+      --blue-b: #60a5fa;
+      --purple: #8b5cf6;
+      --purple-b: #a78bfa;
+      --gold: #f59e0b;
+      --gold-b: #fbbf24;
+      --green: #10b981;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --border: rgba(255,255,255,0.07);
+      --card-bg: rgba(255,255,255,0.04);
+      --card-hover: rgba(255,255,255,0.07);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5, 8, 16, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 16px;
+    }
+    .nav-logo img { height: 36px; display: block; }
+    .nav-logo span {
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--blue-b), var(--purple-b));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .lang-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      transition: all .2s;
+    }
+    .lang-btn:hover { color: var(--text); border-color: var(--blue); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      text-decoration: none;
+      display: inline-block;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { opacity: .85; transform: translateY(-1px); }
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+
+    /* ─── SECTION COMMON ─────────────────────── */
+    section { padding: 100px 24px; }
+    section:nth-child(even) { background: var(--bg2); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(59,130,246,.15), rgba(139,92,246,.15));
+      border: 1px solid rgba(139,92,246,.3);
+      color: var(--purple-b);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: .5px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text) 60%, var(--blue-b));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 620px;
+      margin-bottom: 56px;
+    }
+    .text-center { text-align: center; }
+    .text-center .section-sub { margin-left: auto; margin-right: auto; }
+
+    /* ─── HERO ────────────────────────────────── */
+    #hero {
+      padding: 120px 24px 100px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .hero-glow::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(59,130,246,.12) 0%, transparent 70%);
+    }
+    .hero-glow::after {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(139,92,246,.10) 0%, transparent 70%);
+    }
+    .hero-tag {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(59,130,246,.2), rgba(139,92,246,.2));
+      border: 1px solid rgba(139,92,246,.4);
+      color: var(--purple-b);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 32px;
+      letter-spacing: .5px;
+    }
+    .hero-title {
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, var(--blue-b) 0%, var(--purple-b) 50%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 20px);
+      max-width: 700px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+    .badge {
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      transition: all .2s;
+    }
+    .badge:hover {
+      border-color: var(--blue);
+      background: rgba(59,130,246,.1);
+    }
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-hero {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff;
+      border: none;
+      padding: 16px 40px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 700;
+      font-family: inherit;
+      text-decoration: none;
+      display: inline-block;
+      transition: all .25s;
+      box-shadow: 0 8px 32px rgba(59,130,246,.25);
+    }
+    .btn-hero:hover { opacity: .9; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(59,130,246,.35); }
+
+    /* ─── PAIN POINTS ─────────────────────────── */
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .pain-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: all .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .pain-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(239,68,68,.05), transparent);
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .pain-card:hover::before { opacity: 1; }
+    .pain-card:hover {
+      border-color: rgba(239,68,68,.3);
+      transform: translateY(-4px);
+    }
+    .pain-emoji { font-size: 40px; margin-bottom: 16px; display: block; }
+    .pain-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+    .pain-card p { color: var(--muted); font-size: 15px; line-height: 1.65; }
+
+    /* ─── WHAT IS XAVVI ───────────────────────── */
+    .feature-list { display: flex; flex-direction: column; gap: 20px; }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 28px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: all .2s;
+    }
+    .feature-item:hover {
+      border-color: rgba(59,130,246,.3);
+      background: var(--card-hover);
+      transform: translateX(4px);
+    }
+    .feature-num {
+      min-width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .feature-item h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .feature-item p { color: var(--muted); font-size: 15px; }
+
+    /* ─── AI TWIN ─────────────────────────────── */
+    .twin-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .twin-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      text-align: center;
+      transition: all .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .twin-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--purple));
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .twin-card:hover::after { opacity: 1; }
+    .twin-card:hover { transform: translateY(-6px); border-color: rgba(59,130,246,.3); }
+    .twin-icon { font-size: 48px; margin-bottom: 20px; display: block; }
+    .twin-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 12px; }
+    .twin-card p { color: var(--muted); font-size: 15px; line-height: 1.65; }
+
+    /* ─── TDA ─────────────────────────────────── */
+    .tda-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .tda-left h3 { font-size: 20px; font-weight: 700; margin-bottom: 24px; color: var(--gold); }
+    .tda-points { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .tda-points li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .tda-points li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 14px;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .tda-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .tda-stat {
+      background: var(--card-bg);
+      border: 1px solid rgba(245,158,11,.2);
+      border-radius: var(--radius);
+      padding: 28px 20px;
+      text-align: center;
+      transition: all .2s;
+    }
+    .tda-stat:hover { border-color: var(--gold); transform: scale(1.03); }
+    .tda-num {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .tda-label { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
+    /* ─── INCOME STREAMS ──────────────────────── */
+    .income-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .income-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 20px;
+      text-align: center;
+      transition: all .25s;
+    }
+    .income-card:hover { transform: translateY(-6px); border-color: var(--green); background: rgba(16,185,129,.05); }
+    .income-icon { font-size: 40px; margin-bottom: 16px; display: block; }
+    .income-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+    .income-card p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+    /* ─── TIMELINE ────────────────────────────── */
+    .timeline {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: calc(12.5% + 8px);
+      right: calc(12.5% + 8px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--purple), var(--gold));
+    }
+    .timeline-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-circle {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 20px;
+      box-shadow: 0 0 24px rgba(59,130,246,.4);
+      border: 3px solid var(--bg);
+    }
+    .timeline-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .timeline-item p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ─── IP PROTECTION ───────────────────────── */
+    .protect-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .protect-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      text-align: center;
+      transition: all .25s;
+    }
+    .protect-card:hover { transform: translateY(-4px); border-color: var(--green); background: rgba(16,185,129,.05); }
+    .protect-icon { font-size: 40px; margin-bottom: 20px; display: block; }
+    .protect-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 12px; color: var(--green); }
+    .protect-card p { color: var(--muted); font-size: 15px; line-height: 1.65; }
+
+    /* ─── COMPARE ─────────────────────────────── */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .compare-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+    }
+    .compare-card.now { border-color: rgba(16,185,129,.3); background: rgba(16,185,129,.05); }
+    .compare-card.wait { border-color: rgba(239,68,68,.2); }
+    .compare-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .compare-head .tag {
+      padding: 6px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .now .tag { background: rgba(16,185,129,.15); color: var(--green); }
+    .wait .tag { background: rgba(239,68,68,.1); color: #f87171; }
+    .compare-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .compare-list li { font-size: 15px; color: var(--text); line-height: 1.6; display: flex; gap: 10px; }
+    .compare-list li span { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+
+    /* ─── STATS ───────────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 24px;
+      text-align: center;
+      transition: all .2s;
+    }
+    .stat-card:hover { transform: translateY(-4px); border-color: var(--blue); }
+    .stat-big {
+      font-size: 40px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--blue-b), var(--purple-b));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+    .stat-label { color: var(--muted); font-size: 14px; line-height: 1.5; }
+
+    /* ─── CTA BLOCK ───────────────────────────── */
+    .cta-block {
+      background: linear-gradient(135deg, rgba(245,158,11,.15) 0%, rgba(251,191,36,.08) 100%);
+      border: 1px solid rgba(245,158,11,.3);
+      border-radius: 24px;
+      padding: 72px 48px;
+      text-align: center;
+    }
+    .cta-block h2 {
+      font-size: clamp(24px, 4vw, 42px);
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .cta-block .cta-sub {
+      color: var(--muted);
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .cta-block .cta-body {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 36px;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-b));
+      color: #000;
+      border: none;
+      padding: 18px 48px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 800;
+      font-family: inherit;
+      text-decoration: none;
+      display: inline-block;
+      transition: all .25s;
+      box-shadow: 0 8px 32px rgba(245,158,11,.3);
+      margin-bottom: 20px;
+    }
+    .btn-gold:hover { opacity: .9; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(245,158,11,.4); }
+    .cta-note { color: var(--muted); font-size: 14px; margin-top: 16px; }
+    .cta-limit {
+      display: inline-block;
+      background: rgba(245,158,11,.15);
+      border: 1px solid rgba(245,158,11,.3);
+      color: var(--gold);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 28px;
+      letter-spacing: .5px;
+    }
+
+    /* ─── FOOTER ──────────────────────────────── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* ─── MOBILE NAV MENU ─────────────────────── */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 16px 24px;
+    }
+    .mobile-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--text); }
+    .mobile-menu.open { display: flex; }
+
+    /* ─── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .pain-grid { grid-template-columns: 1fr; }
+      .twin-grid { grid-template-columns: 1fr; }
+      .income-grid { grid-template-columns: repeat(2, 1fr); }
+      .tda-grid { grid-template-columns: 1fr; gap: 32px; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .timeline { flex-direction: column; gap: 12px; }
+      .timeline::before { display: none; }
+      .timeline-item { flex-direction: row; text-align: left; gap: 20px; padding: 0; }
+      .timeline-item h3 { margin-bottom: 4px; }
+      .protect-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 72px 20px; }
+      #hero { padding: 80px 20px; }
+      .income-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .cta-block { padding: 48px 24px; }
+      .tda-right { grid-template-columns: 1fr 1fr; }
+      .nav-actions .btn-primary { display: none; }
+    }
+
+    /* ─── ANIMATED ENTRY ──────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════ -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <a href="#hero">
+        <img src="xavvi-logo.png" alt="Xavvi" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+        <span style="display:none">Xavvi</span>
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#pain" data-i18n="nav_pain">痛点</a></li>
+      <li><a href="#what" data-i18n="nav_what">平台介绍</a></li>
+      <li><a href="#twin" data-i18n="nav_twin">AI分身</a></li>
+      <li><a href="#tda" data-i18n="nav_tda">TDA资产</a></li>
+      <li><a href="#income" data-i18n="nav_income">收入来源</a></li>
+      <li><a href="#cta-section" data-i18n="nav_join">加入我们</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="lang-btn" id="langToggle">EN</button>
+      <a href="mailto:peter@xavvi.com?subject=网红合伙人申请" class="btn-primary" data-i18n="nav_cta">立即加入</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#pain" data-i18n="nav_pain">痛点</a>
+    <a href="#what" data-i18n="nav_what">平台介绍</a>
+    <a href="#twin" data-i18n="nav_twin">AI分身</a>
+    <a href="#tda" data-i18n="nav_tda">TDA资产</a>
+    <a href="#income" data-i18n="nav_income">收入来源</a>
+    <a href="#cta-section" data-i18n="nav_join">加入我们</a>
+    <a href="mailto:peter@xavvi.com?subject=网红合伙人申请" data-i18n="nav_cta">立即加入</a>
+  </div>
+</nav>
+
+<!-- ═══ SECTION 1: HERO ═══════════════════════════ -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="hero-tag" data-i18n="hero_tag">🌟 网红变现平台 · 下一代</div>
+    <h1 class="hero-title">
+      <span data-i18n="hero_title_line1">让你的影响力</span><br>
+      <span class="gradient-text" data-i18n="hero_title_line2">永远不停止赚钱</span>
+    </h1>
+    <p class="hero-sub" data-i18n="hero_sub">AI 数字分身 × Web3 数据资产 × 全球品牌变现 — Xavvi 是专为网红打造的下一代变现平台</p>
+    <div class="hero-badges">
+      <span class="badge" data-i18n="badge1">🤖 AI数字分身</span>
+      <span class="badge" data-i18n="badge2">🪙 TDA数据资产</span>
+      <span class="badge" data-i18n="badge3">🌍 30种语言</span>
+      <span class="badge" data-i18n="badge4">🚀 纳斯达克路径</span>
+    </div>
+    <div class="hero-cta">
+      <a href="mailto:peter@xavvi.com?subject=网红合伙人申请" class="btn-hero" data-i18n="hero_cta">立即申请成为合伙人</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 2: PAIN POINTS ══════════════════════ -->
+<section id="pain">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag" data-i18n="pain_tag">⚠️ 创作者的困境</div>
+      <h2 class="section-title" data-i18n="pain_title">你每天努力创作，但这4件事正在威胁你的未来</h2>
+      <p class="section-sub" data-i18n="pain_sub">每一条都是真实存在的威胁。你不是一个人面对这些。</p>
+    </div>
+    <div class="pain-grid reveal">
+      <div class="pain-card">
+        <span class="pain-emoji">😤</span>
+        <h3 data-i18n="pain1_title">你什么都不拥有</h3>
+        <p data-i18n="pain1_desc">每天发内容，粉丝、数据、流量全在平台手里，不属于你。你是在给平台打工。</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-emoji">📉</span>
+        <h3 data-i18n="pain2_title">停更就消失</h3>
+        <p data-i18n="pain2_desc">一个月不发内容，算法抛弃你，流量归零。你永远在跑步机上，停不下来。</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-emoji">❓</span>
+        <h3 data-i18n="pain3_title">10年后你在哪</h3>
+        <p data-i18n="pain3_desc">没有资产积累，没有被动收入，网红事业有时限。你的未来在哪里？</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-emoji">🚫</span>
+        <h3 data-i18n="pain4_title">账号随时被封</h3>
+        <p data-i18n="pain4_desc">平台一句话，你多年积累的一切瞬间归零。这不是危言耸听，这每天都在发生。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 3: WHAT IS XAVVI ════════════════════ -->
+<section id="what">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag" data-i18n="what_tag">🏗️ 平台定义</div>
+      <h2 class="section-title" data-i18n="what_title">Xavvi = TikTok + Temu，用 AI + Web3 重建</h2>
+      <p class="section-sub" data-i18n="what_sub">我们不只是一个平台，我们帮你把影响力变成永久资产</p>
+    </div>
+    <div class="feature-list reveal">
+      <div class="feature-item">
+        <div class="feature-num">1</div>
+        <div>
+          <h3 data-i18n="what1_title">AI × Web3 社交电商平台</h3>
+          <p data-i18n="what1_desc">结合TikTok内容传播力 + Temu供应链效率，打造下一代社交电商基础设施。</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">2</div>
+        <div>
+          <h3 data-i18n="what2_title">AI数字分身 24/7 帮你赚钱</h3>
+          <p data-i18n="what2_desc">你睡觉，分身在接广告、做内容、出单。你的影响力从此不受时间限制。</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">3</div>
+        <div>
+          <h3 data-i18n="what3_title">TDA 数据资产代币</h3>
+          <p data-i18n="what3_desc">把你的粉丝关系上链，变成可增值的数字资产。你拥有它，它为你增值。</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">4</div>
+        <div>
+          <h3 data-i18n="what4_title">打造你的个人消费品牌</h3>
+          <p data-i18n="what4_desc">直连制造商，从内容到商品全栈孵化。粉丝变客户，流量变销售。</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">5</div>
+        <div>
+          <h3 data-i18n="what5_title">纳斯达克上市路径</h3>
+          <p data-i18n="what5_desc">成为早期合伙人，共享IPO市值红利。这不是普通平台，这是你的股权机遇。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 4: AI TWIN ════════════════════════ -->
+<section id="twin">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag" data-i18n="twin_tag">🤖 AI 数字分身</div>
+      <h2 class="section-title" data-i18n="twin_title">你的AI分身，比你更努力</h2>
+      <p class="section-sub" data-i18n="twin_sub">一次训练，永久运营。你的声音、风格、影响力，24小时不间断工作</p>
+    </div>
+    <div class="twin-grid reveal">
+      <div class="twin-card">
+        <span class="twin-icon">🎬</span>
+        <h3 data-i18n="twin1_title">每天创作1000条视频</h3>
+        <p data-i18n="twin1_desc">AI自动生成符合你风格的内容，批量分发到全球平台。你的内容覆盖率提升1000倍。</p>
+      </div>
+      <div class="twin-card">
+        <span class="twin-icon">🌍</span>
+        <h3 data-i18n="twin2_title">30种语言同步</h3>
+        <p data-i18n="twin2_desc">自动翻译，同一条内容触达全球粉丝，打破语言壁垒。全球就是你的主场。</p>
+      </div>
+      <div class="twin-card">
+        <span class="twin-icon">💰</span>
+        <h3 data-i18n="twin3_title">70%广告收入直达你</h3>
+        <p data-i18n="twin3_desc">商家购买你的流量，70%收益直接到你账户，你躺着赚钱。行业最高分成比例。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 5: TDA ════════════════════════════ -->
+<section id="tda">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag" data-i18n="tda_tag">🪙 TDA 数字资产</div>
+      <h2 class="section-title" data-i18n="tda_title">TDA 可信数据资产 — 把影响力变成数字黄金</h2>
+      <p class="section-sub" data-i18n="tda_sub">你的粉丝关系是你最有价值的资产，现在你终于可以拥有它</p>
+    </div>
+    <div class="tda-grid reveal">
+      <div class="tda-left">
+        <h3 data-i18n="tda_how_title">TDA 如何运作</h3>
+        <ul class="tda-points">
+          <li data-i18n="tda_p1">每位网红专属1亿枚TDA，总量固定永不增发</li>
+          <li data-i18n="tda_p2">商家每次访问你的粉丝数据，必须支付TDA作为"访问费"</li>
+          <li data-i18n="tda_p3">每次使用后TDA立即销毁，持续通缩机制内建于协议层</li>
+          <li data-i18n="tda_p4">持有量越早越大，稀缺性越强</li>
+        </ul>
+      </div>
+      <div class="tda-right">
+        <div class="tda-stat">
+          <div class="tda-num" data-i18n="tda_stat1_num">1亿枚</div>
+          <div class="tda-label" data-i18n="tda_stat1_label">每位网红专属总量</div>
+        </div>
+        <div class="tda-stat">
+          <div class="tda-num" data-i18n="tda_stat2_num">通缩</div>
+          <div class="tda-label" data-i18n="tda_stat2_label">使用即销毁机制</div>
+        </div>
+        <div class="tda-stat">
+          <div class="tda-num" data-i18n="tda_stat3_num">100%</div>
+          <div class="tda-label" data-i18n="tda_stat3_label">使用后销毁比例</div>
+        </div>
+        <div class="tda-stat">
+          <div class="tda-num" data-i18n="tda_stat4_num">$150亿</div>
+          <div class="tda-label" data-i18n="tda_stat4_label">3000位网红生态总估值</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 6: INCOME STREAMS ═══════════════════ -->
+<section id="income">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag" data-i18n="income_tag">💸 收入来源</div>
+      <h2 class="section-title" data-i18n="income_title">加入 Xavvi，你有4条财富通道</h2>
+      <p class="section-sub" data-i18n="income_sub">多元化收入，互相叠加，构建你的财富护城河</p>
+    </div>
+    <div class="income-grid reveal">
+      <div class="income-card">
+        <span class="income-icon">💰</span>
+        <h3 data-i18n="income1_title">广告收入70%</h3>
+        <p data-i18n="income1_desc">AI分身接广告，你拿70%，行业最高分成。每天24小时不停息。</p>
+      </div>
+      <div class="income-card">
+        <span class="income-icon">🪙</span>
+        <h3 data-i18n="income2_title">TDA资产升值</h3>
+        <p data-i18n="income2_desc">持有你的TDA数据资产，通缩机制驱动稀缺性，随生态扩张持续增值。</p>
+      </div>
+      <div class="income-card">
+        <span class="income-icon">🏭</span>
+        <h3 data-i18n="income3_title">品牌变现</h3>
+        <p data-i18n="income3_desc">直连工厂，打造个人消费品牌，粉丝变客户，内容变生意。</p>
+      </div>
+      <div class="income-card">
+        <span class="income-icon">📈</span>
+        <h3 data-i18n="income4_title">纳斯达克股份</h3>
+        <p data-i18n="income4_desc">早期合伙人获得上市公司期权，IPO共享市值，成为真正的股东。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 7: TIMELINE ═══════════════════════ -->
+<section id="path">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag" data-i18n="path_tag">🗺️ 财富路径</div>
+      <h2 class="section-title" data-i18n="path_title">从网红到资产家，四步走</h2>
+      <p class="section-sub" data-i18n="path_sub">清晰的路径，可预期的成果，每一步都踩在实处</p>
+    </div>
+    <div class="timeline reveal" style="margin-top:40px;">
+      <div class="timeline-item">
+        <div class="timeline-circle">①</div>
+        <div>
+          <h3 data-i18n="path1_title">加入 & 训练分身</h3>
+          <p data-i18n="path1_desc">加入平台，训练你的AI数字分身，让它完美复刻你的风格</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-circle">②</div>
+        <div>
+          <h3 data-i18n="path2_title">被动收入启动</h3>
+          <p data-i18n="path2_desc">AI分身开始24/7接广告，你的第一笔被动收入到账</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-circle">③</div>
+        <div>
+          <h3 data-i18n="path3_title">TDA增值 & 品牌</h3>
+          <p data-i18n="path3_desc">TDA代币持续增值，同步建立你的个人消费品牌</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-circle">④</div>
+        <div>
+          <h3 data-i18n="path4_title">纳斯达克IPO</h3>
+          <p data-i18n="path4_desc">早期合伙人共享IPO市值，财富最终实现，成为资产家</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 8: IP PROTECTION ════════════════════ -->
+<section id="protect">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag" data-i18n="protect_tag">🔒 IP保护</div>
+      <h2 class="section-title" data-i18n="protect_title">你的IP，永远由你掌控</h2>
+      <p class="section-sub" data-i18n="protect_sub">三重保障，让你安心把影响力交给AI放大</p>
+    </div>
+    <div class="protect-grid reveal">
+      <div class="protect-card">
+        <span class="protect-icon">✅</span>
+        <h3 data-i18n="protect1_title">审批制</h3>
+        <p data-i18n="protect1_desc">所有使用你形象的商家请求，必须经你批准才能投放。你是自己形象的唯一守门人。</p>
+      </div>
+      <div class="protect-card">
+        <span class="protect-icon">🗑️</span>
+        <h3 data-i18n="protect2_title">删除权</h3>
+        <p data-i18n="protect2_desc">任何你不满意的AI生成内容，一键删除，平台24小时内执行。你对内容有最终控制权。</p>
+      </div>
+      <div class="protect-card">
+        <span class="protect-icon">🆓</span>
+        <h3 data-i18n="protect3_title">零成本</h3>
+        <p data-i18n="protect3_desc">你不需要支付任何费用，所有AI制作成本由平台承担。你只需要提供你的IP授权。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 9: WHY NOW ════════════════════════ -->
+<section id="why-now">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag" data-i18n="why_tag">⏰ 时机窗口</div>
+      <h2 class="section-title" data-i18n="why_title">为什么现在加入，比1年后加入更有优势</h2>
+      <p class="section-sub" data-i18n="why_sub">早鸟优势不是口号，是真实的数学题</p>
+    </div>
+    <div class="compare-grid reveal">
+      <div class="compare-card now">
+        <div class="compare-head">
+          <span style="font-size:28px;">🟢</span>
+          <span class="tag" data-i18n="why_now_tag">现在加入</span>
+        </div>
+        <ul class="compare-list">
+          <li><span>✅</span><span data-i18n="why_now1">以早期合伙人条件加入，锁定更大TDA持有量</span></li>
+          <li><span>✅</span><span data-i18n="why_now2">先发优势，粉丝群基数大时TDA更值钱</span></li>
+          <li><span>✅</span><span data-i18n="why_now3">AI还没完全取代创作者，你的真实IP最珍贵</span></li>
+          <li><span>✅</span><span data-i18n="why_now4">2026年3月 Hero Challenge：30天挑战赚取1000万</span></li>
+        </ul>
+      </div>
+      <div class="compare-card wait">
+        <div class="compare-head">
+          <span style="font-size:28px;">🔴</span>
+          <span class="tag" data-i18n="why_wait_tag">等待观望</span>
+        </div>
+        <ul class="compare-list">
+          <li><span>❌</span><span data-i18n="why_wait1">错过早期合伙人资格，持有量受限</span></li>
+          <li><span>❌</span><span data-i18n="why_wait2">AI内容泛滥，你的差异化窗口关闭</span></li>
+          <li><span>❌</span><span data-i18n="why_wait3">等别人的TDA先升值，你只能买贵的</span></li>
+          <li><span>❌</span><span data-i18n="why_wait4">失去合伙人资格，变成普通用户</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 10: STATS ═════════════════════════ -->
+<section id="stats">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-tag" data-i18n="stats_tag">📊 数据背书</div>
+      <h2 class="section-title" data-i18n="stats_title">Xavvi 的规模与实力</h2>
+      <p class="section-sub" data-i18n="stats_sub">数字说话，结果为证</p>
+    </div>
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <div class="stat-big" data-i18n="stat1_num">10,000+</div>
+        <div class="stat-label" data-i18n="stat1_label">签约网红目标</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-big" data-i18n="stat2_num">240个</div>
+        <div class="stat-label" data-i18n="stat2_label">全球可信节点</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-big" data-i18n="stat3_num">30种</div>
+        <div class="stat-label" data-i18n="stat3_label">AI内容语言</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-big" data-i18n="stat4_num">£800万</div>
+        <div class="stat-label" data-i18n="stat4_label">欧莱雅英国单月业绩 · 英国TikTok服务商#1</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 11: FINAL CTA ═════════════════════ -->
+<section id="cta-section">
+  <div class="container">
+    <div class="cta-block reveal">
+      <div class="cta-limit" data-i18n="cta_limit">🔥 限前1000名合伙人</div>
+      <h2 data-i18n="cta_title">限前1000名合伙人</h2>
+      <p class="cta-sub" data-i18n="cta_sub">即将在比弗利山庄创作者峰会（2026）正式亮相，名额有限</p>
+      <p class="cta-body" data-i18n="cta_body">你的AI分身正在等你 — 现在申请，锁定早期合伙人资格</p>
+      <a href="mailto:peter@xavvi.com?subject=网红合伙人申请" class="btn-gold" data-i18n="cta_btn">立即申请 · Apply Now</a>
+      <p class="cta-note" data-i18n="cta_note">申请成功后，我们的团队会在48小时内联系你</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DISCLAIMER ════════════════════════════════ -->
+<section id="disclaimer" style="background:#030608;padding:40px 24px 32px;border-top:1px solid rgba(255,255,255,0.06)">
+  <div class="container" style="max-width:900px">
+    <p style="font-size:11px;line-height:1.8;color:#4a5568;text-align:center;" data-i18n="disclaimer_text">
+      免责声明：本网站所有内容仅供一般信息参考，不构成任何投资建议、要约或邀约。TDA、BFC 等数字资产的价值受市场因素影响，过往表现不代表未来结果。参与前请自行评估风险，并咨询专业财务或法律顾问。Xavvi Holdings Limited 对因使用本网站信息而产生的任何损失概不负责。
+    </p>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═════════════════════════════════════ -->
+<footer>
+  <p>© 2026 Xavvi Holdings Limited · <a href="mailto:peter@xavvi.com">peter@xavvi.com</a> · <span data-i18n="footer_tag">英国TikTok服务商 #1</span></p>
+</footer>
+
+<!-- ═══ SCRIPTS ════════════════════════════════════ -->
+<script>
+  // ── i18n dictionary ─────────────────────────────
+  const i18n = {
+    zh: {
+      page_title: 'Xavvi — 网红变现平台',
+      nav_pain: '痛点',
+      nav_what: '平台介绍',
+      nav_twin: 'AI分身',
+      nav_tda: 'TDA资产',
+      nav_income: '收入来源',
+      nav_join: '加入我们',
+      nav_cta: '立即加入',
+      hero_tag: '🌟 网红变现平台 · 下一代',
+      hero_title_line1: '让你的影响力',
+      hero_title_line2: '永远不停止赚钱',
+      hero_sub: 'AI 数字分身 × Web3 数据资产 × 全球品牌变现 — Xavvi 是专为网红打造的下一代变现平台',
+      badge1: '🤖 AI数字分身',
+      badge2: '🪙 TDA数据资产',
+      badge3: '🌍 30种语言',
+      badge4: '🚀 纳斯达克路径',
+      hero_cta: '立即申请成为合伙人',
+      pain_tag: '⚠️ 创作者的困境',
+      pain_title: '你每天努力创作，但这4件事正在威胁你的未来',
+      pain_sub: '每一条都是真实存在的威胁。你不是一个人面对这些。',
+      pain1_title: '你什么都不拥有',
+      pain1_desc: '每天发内容，粉丝、数据、流量全在平台手里，不属于你。你是在给平台打工。',
+      pain2_title: '停更就消失',
+      pain2_desc: '一个月不发内容，算法抛弃你，流量归零。你永远在跑步机上，停不下来。',
+      pain3_title: '10年后你在哪',
+      pain3_desc: '没有资产积累，没有被动收入，网红事业有时限。你的未来在哪里？',
+      pain4_title: '账号随时被封',
+      pain4_desc: '平台一句话，你多年积累的一切瞬间归零。这不是危言耸听，这每天都在发生。',
+      what_tag: '🏗️ 平台定义',
+      what_title: 'Xavvi = TikTok + Temu，用 AI + Web3 重建',
+      what_sub: '我们不只是一个平台，我们帮你把影响力变成永久资产',
+      what1_title: 'AI × Web3 社交电商平台',
+      what1_desc: '结合TikTok内容传播力 + Temu供应链效率，打造下一代社交电商基础设施。',
+      what2_title: 'AI数字分身 24/7 帮你赚钱',
+      what2_desc: '你睡觉，分身在接广告、做内容、出单。你的影响力从此不受时间限制。',
+      what3_title: 'TDA 数据资产代币',
+      what3_desc: '把你的粉丝关系上链，变成可增值的数字资产。你拥有它，它为你增值。',
+      what4_title: '打造你的个人消费品牌',
+      what4_desc: '直连制造商，从内容到商品全栈孵化。粉丝变客户，流量变销售。',
+      what5_title: '纳斯达克上市路径',
+      what5_desc: '成为早期合伙人，共享IPO市值红利。这不是普通平台，这是你的股权机遇。',
+      twin_tag: '🤖 AI 数字分身',
+      twin_title: '你的AI分身，比你更努力',
+      twin_sub: '一次训练，永久运营。你的声音、风格、影响力，24小时不间断工作',
+      twin1_title: '每天创作1000条视频',
+      twin1_desc: 'AI自动生成符合你风格的内容，批量分发到全球平台。你的内容覆盖率提升1000倍。',
+      twin2_title: '30种语言同步',
+      twin2_desc: '自动翻译，同一条内容触达全球粉丝，打破语言壁垒。全球就是你的主场。',
+      twin3_title: '70%广告收入直达你',
+      twin3_desc: '商家购买你的流量，70%收益直接到你账户，你躺着赚钱。行业最高分成比例。',
+      tda_tag: '🪙 TDA 数字资产',
+      tda_title: 'TDA 可信数据资产 — 把影响力变成数字黄金',
+      tda_sub: '你的粉丝关系是你最有价值的资产，现在你终于可以拥有它',
+      tda_how_title: 'TDA 如何运作',
+      tda_p1: '每位网红专属1亿枚TDA，总量固定永不增发',
+      tda_p2: '商家每次访问你的粉丝数据，必须支付TDA作为"访问费"',
+      tda_p3: '每次使用后TDA立即销毁，持续通缩机制内建于协议层',
+      tda_p4: '持有量越早越大，稀缺性越强',
+      tda_stat1_num: '1亿枚',
+      tda_stat1_label: '每位网红专属总量',
+      tda_stat2_num: '通缩',
+      tda_stat2_label: '使用即销毁机制',
+      tda_stat3_num: '100%',
+      tda_stat3_label: '使用后销毁比例',
+      tda_stat4_num: '$150亿',
+      tda_stat4_label: '3000位网红生态总估值',
+      income_tag: '💸 收入来源',
+      income_title: '加入 Xavvi，你有4条财富通道',
+      income_sub: '多元化收入，互相叠加，构建你的财富护城河',
+      income1_title: '广告收入70%',
+      income1_desc: 'AI分身接广告，你拿70%，行业最高分成。每天24小时不停息。',
+      income2_title: 'TDA资产升值',
+      income2_desc: '持有你的TDA数据资产，通缩机制驱动稀缺性，随生态扩张持续增值。',
+      income3_title: '品牌变现',
+      income3_desc: '直连工厂，打造个人消费品牌，粉丝变客户，内容变生意。',
+      income4_title: '纳斯达克股份',
+      income4_desc: '早期合伙人获得上市公司期权，IPO共享市值，成为真正的股东。',
+      path_tag: '🗺️ 财富路径',
+      path_title: '从网红到资产家，四步走',
+      path_sub: '清晰的路径，可预期的成果，每一步都踩在实处',
+      path1_title: '加入 & 训练分身',
+      path1_desc: '加入平台，训练你的AI数字分身，让它完美复刻你的风格',
+      path2_title: '被动收入启动',
+      path2_desc: 'AI分身开始24/7接广告，你的第一笔被动收入到账',
+      path3_title: 'TDA增值 & 品牌',
+      path3_desc: 'TDA代币持续增值，同步建立你的个人消费品牌',
+      path4_title: '纳斯达克IPO',
+      path4_desc: '早期合伙人共享IPO市值，财富最终实现，成为资产家',
+      protect_tag: '🔒 IP保护',
+      protect_title: '你的IP，永远由你掌控',
+      protect_sub: '三重保障，让你安心把影响力交给AI放大',
+      protect1_title: '审批制',
+      protect1_desc: '所有使用你形象的商家请求，必须经你批准才能投放。你是自己形象的唯一守门人。',
+      protect2_title: '删除权',
+      protect2_desc: '任何你不满意的AI生成内容，一键删除，平台24小时内执行。你对内容有最终控制权。',
+      protect3_title: '零成本',
+      protect3_desc: '你不需要支付任何费用，所有AI制作成本由平台承担。你只需要提供你的IP授权。',
+      why_tag: '⏰ 时机窗口',
+      why_title: '为什么现在加入，比1年后加入更有优势',
+      why_sub: '早鸟优势不是口号，是真实的数学题',
+      why_now_tag: '现在加入',
+      why_now1: '以早期合伙人条件加入，锁定更大TDA持有量',
+      why_now2: '先发优势，粉丝群基数大时TDA更值钱',
+      why_now3: 'AI还没完全取代创作者，你的真实IP最珍贵',
+      why_now4: '2026年3月 Hero Challenge：30天挑战赚取1000万',
+      why_wait_tag: '等待观望',
+      why_wait1: '错过早期合伙人资格，持有量受限',
+      why_wait2: 'AI内容泛滥，你的差异化窗口关闭',
+      why_wait3: '等别人的TDA先升值，你只能买贵的',
+      why_wait4: '失去合伙人资格，变成普通用户',
+      stats_tag: '📊 数据背书',
+      stats_title: 'Xavvi 的规模与实力',
+      stats_sub: '数字说话，结果为证',
+      stat1_num: '10,000+',
+      stat1_label: '签约网红目标',
+      stat2_num: '240个',
+      stat2_label: '全球可信节点',
+      stat3_num: '30种',
+      stat3_label: 'AI内容语言',
+      stat4_num: '£800万',
+      stat4_label: '欧莱雅英国单月业绩 · 英国TikTok服务商#1',
+      cta_limit: '🔥 限前1000名合伙人',
+      cta_title: '限前1000名合伙人',
+      cta_sub: '即将在比弗利山庄创作者峰会（2026）正式亮相，名额有限',
+      cta_body: '你的AI分身正在等你 — 现在申请，锁定早期合伙人资格',
+      cta_btn: '立即申请 · Apply Now',
+      cta_note: '申请成功后，我们的团队会在48小时内联系你',
+      footer_tag: '英国TikTok服务商 #1',
+      disclaimer_text: '免责声明：本网站所有内容仅供一般信息参考，不构成任何投资建议、要约或邀约。TDA、BFC 等数字资产的价值受市场因素影响，过往表现不代表未来结果。参与前请自行评估风险，并咨询专业财务或法律顾问。Xavvi Holdings Limited 对因使用本网站信息而产生的任何损失概不负责。',
+      lang_toggle: 'EN',
+    },
+    en: {
+      page_title: 'Xavvi — Creator Monetization Platform',
+      nav_pain: 'Pain Points',
+      nav_what: 'Platform',
+      nav_twin: 'AI Twin',
+      nav_tda: 'TDA Assets',
+      nav_income: 'Revenue',
+      nav_join: 'Join Us',
+      nav_cta: 'Join Now',
+      hero_tag: '🌟 Next-Gen Creator Monetization Platform',
+      hero_title_line1: 'Your Influence.',
+      hero_title_line2: 'Working 24/7. Forever.',
+      hero_sub: 'AI Twin × Web3 Data Assets × Global Brand Monetization — The next-gen creator monetization platform built exclusively for influencers.',
+      badge1: '🤖 AI Digital Twin',
+      badge2: '🪙 TDA Data Assets',
+      badge3: '🌍 30 Languages',
+      badge4: '🚀 Nasdaq Pathway',
+      hero_cta: 'Apply as a Partner',
+      pain_tag: '⚠️ Creator Struggles',
+      pain_title: 'You work hard every day, but these 4 threats are undermining your future',
+      pain_sub: 'Every one of these is a real threat. You are not alone.',
+      pain1_title: 'You Own Nothing',
+      pain1_desc: "You post content every day, but your fans, data, and traffic all belong to the platform — not you. You're working for someone else.",
+      pain2_title: 'Stop Posting, Disappear',
+      pain2_desc: "One month without content and the algorithm abandons you. Traffic drops to zero. You're on a treadmill you can't stop.",
+      pain3_title: 'Where Will You Be in 10 Years?',
+      pain3_desc: 'No asset accumulation, no passive income. Being an influencer has an expiry date. Where is your future?',
+      pain4_title: 'Your Account Can Be Banned Anytime',
+      pain4_desc: "One call from the platform and everything you've built over years is gone. This isn't fear-mongering — it happens every day.",
+      what_tag: '🏗️ Platform Definition',
+      what_title: 'Xavvi = TikTok + Temu, Rebuilt with AI + Web3',
+      what_sub: "We're not just a platform. We help you turn your influence into permanent assets.",
+      what1_title: 'AI × Web3 Social Commerce Platform',
+      what1_desc: "Combining TikTok's content reach + Temu's supply chain efficiency to build next-gen social commerce infrastructure.",
+      what2_title: 'AI Twin Earns for You 24/7',
+      what2_desc: 'While you sleep, your twin takes ad deals, creates content, and drives sales. Your influence is no longer limited by time.',
+      what3_title: 'TDA Data Asset Tokens',
+      what3_desc: 'Put your fan relationships on-chain and turn them into appreciating digital assets. You own them, they grow for you.',
+      what4_title: 'Build Your Personal Consumer Brand',
+      what4_desc: 'Direct-to-manufacturer. Full-stack brand incubation from content to product. Turn followers into customers.',
+      what5_title: 'Nasdaq Listing Pathway',
+      what5_desc: 'Become an early partner and share in IPO value upside. This is not just a platform — it is your equity opportunity.',
+      twin_tag: '🤖 AI Digital Twin',
+      twin_title: 'Your AI Twin Works Harder Than You',
+      twin_sub: 'Train once, operate forever. Your voice, style, and influence work around the clock.',
+      twin1_title: '1,000 Videos Per Day',
+      twin1_desc: 'AI auto-generates content that matches your style and distributes it across global platforms. Your reach multiplies 1,000×.',
+      twin2_title: '30 Languages Simultaneously',
+      twin2_desc: 'Auto-translate your content to reach global fans in their language. The whole world becomes your audience.',
+      twin3_title: '70% Ad Revenue Goes to You',
+      twin3_desc: 'Brands buy your traffic. You get 70% — the highest revenue share in the industry. Earn while you sleep.',
+      tda_tag: '🪙 TDA Digital Asset',
+      tda_title: 'TDA Trusted Data Asset — Turn Influence into Digital Gold',
+      tda_sub: 'Your fan relationships are your most valuable asset. Now you can finally own them.',
+      tda_how_title: 'How TDA Works',
+      tda_p1: 'Each creator gets a unique 100M TDA — fixed supply, never diluted.',
+      tda_p2: 'Every time a brand accesses your fan data, they must pay TDA as an "access fee".',
+      tda_p3: 'TDA is burned immediately after each use — built-in deflationary mechanism at the protocol level.',
+      tda_p4: 'The earlier and larger your holdings, the stronger the scarcity advantage.',
+      tda_stat1_num: '100M',
+      tda_stat1_label: "Each Creator's Exclusive Supply",
+      tda_stat2_num: 'Deflation',
+      tda_stat2_label: 'Burn-on-use mechanism',
+      tda_stat3_num: '100%',
+      tda_stat3_label: 'Burn Rate After Each Use',
+      tda_stat4_num: '$15B',
+      tda_stat4_label: '3,000 Creator Ecosystem Valuation',
+      income_tag: '💸 Revenue Streams',
+      income_title: 'Join Xavvi — 4 Wealth Channels Await You',
+      income_sub: 'Diversified income streams that compound and build your financial moat.',
+      income1_title: '70% Ad Revenue',
+      income1_desc: 'Your AI twin takes ad deals. You keep 70% — the highest split in the industry, 24/7.',
+      income2_title: 'TDA Asset Appreciation',
+      income2_desc: 'Hold your TDA data assets. The deflationary mechanism drives scarcity as the ecosystem grows.',
+      income3_title: 'Brand Monetization',
+      income3_desc: 'Direct-to-factory. Build your personal consumer brand. Turn fans into customers.',
+      income4_title: 'Nasdaq Equity',
+      income4_desc: 'Early partners receive public company options. Share in IPO value. Become a true stakeholder.',
+      path_tag: '🗺️ Wealth Pathway',
+      path_title: 'From Influencer to Asset Owner — 4 Steps',
+      path_sub: 'A clear path, predictable outcomes — every step grounded in reality.',
+      path1_title: 'Join & Train Your Twin',
+      path1_desc: 'Join the platform and train your AI twin to perfectly replicate your style.',
+      path2_title: 'Passive Income Activated',
+      path2_desc: 'Your AI twin begins taking ad deals 24/7. Your first passive income arrives.',
+      path3_title: 'TDA Grows & Brand Launches',
+      path3_desc: 'TDA tokens appreciate steadily while you build your personal consumer brand.',
+      path4_title: 'Nasdaq IPO',
+      path4_desc: 'Early partners share in IPO market cap. Wealth fully realized. You become an asset owner.',
+      protect_tag: '🔒 IP Protection',
+      protect_title: 'Your IP. Always Under Your Control.',
+      protect_sub: 'Triple protection so you can confidently let AI amplify your influence.',
+      protect1_title: 'Approval Required',
+      protect1_desc: 'Any brand wanting to use your likeness must get your approval first. You are the sole gatekeeper of your image.',
+      protect2_title: 'Right to Delete',
+      protect2_desc: 'Any AI-generated content you dislike can be deleted in one tap. Platform must execute within 24 hours.',
+      protect3_title: 'Zero Cost',
+      protect3_desc: 'You pay nothing. All AI production costs are covered by the platform. Just bring your IP.',
+      why_tag: '⏰ Timing Window',
+      why_title: 'Why Joining Now Gives You a Stronger Advantage Than Waiting',
+      why_sub: "First-mover advantage isn't a slogan — it's real math.",
+      why_now_tag: 'Join Now',
+      why_now1: 'Join as an early partner and lock in a larger TDA allocation',
+      why_now2: 'First-mover advantage — larger fan base = more valuable TDA',
+      why_now3: "AI hasn't fully replaced creators yet — your authentic IP is most precious now",
+      why_now4: '2026 March Hero Challenge: 30-day challenge to earn ¥10M',
+      why_wait_tag: 'Wait & See',
+      why_wait1: 'Miss early partner status — smaller TDA allocation',
+      why_wait2: 'AI content floods the market — your differentiation window closes',
+      why_wait3: "Others' TDA appreciates first — you're left buying at higher prices",
+      why_wait4: 'Lose partner status — become a regular user',
+      stats_tag: '📊 Platform Stats',
+      stats_title: "Xavvi's Scale & Strength",
+      stats_sub: 'Numbers speak. Results prove.',
+      stat1_num: '10,000+',
+      stat1_label: 'Target Signed Creators',
+      stat2_num: '240',
+      stat2_label: 'Global Trusted Nodes',
+      stat3_num: '30',
+      stat3_label: 'AI Content Languages',
+      stat4_num: '£8M',
+      stat4_label: "L'Oréal UK Monthly Revenue · UK TikTok Service Provider #1",
+      cta_limit: '🔥 First 1,000 Partners Only',
+      cta_title: 'First 1,000 Partners Only',
+      cta_sub: 'Official launch at the Beverly Hills Creator Summit (2026) — limited spots.',
+      cta_body: 'Your AI twin is waiting — Apply now to lock in your early partner status.',
+      cta_btn: 'Apply Now',
+      cta_note: 'Our team will contact you within 48 hours of your application.',
+      footer_tag: 'UK TikTok Service Provider #1',
+      footer_tag: 'UK TikTok Service Provider #1',
+      disclaimer_text: 'Disclaimer: All content on this website is for general informational purposes only and does not constitute investment advice, an offer, or a solicitation. The value of digital assets such as TDA and BFC is subject to market factors; past performance does not guarantee future results. Please assess your own risk and consult a qualified financial or legal advisor before participating. Xavvi Holdings Limited accepts no liability for any loss arising from the use of information on this website.',
+    }
+  };
+
+  let currentLang = 'zh';
+
+  function applyLang(lang) {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    const dict = i18n[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) el.textContent = dict[key];
+    });
+    document.title = dict.page_title;
+    document.getElementById('langToggle').textContent = dict.lang_toggle;
+    currentLang = lang;
+  }
+
+  document.getElementById('langToggle').addEventListener('click', () => {
+    applyLang(currentLang === 'zh' ? 'en' : 'zh');
+  });
+
+  // ── Hamburger menu ───────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  // ── Scroll reveal ────────────────────────────────
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ── Nav scroll effect ─────────────────────────────
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('main-nav');
+    if (window.scrollY > 20) {
+      nav.style.background = 'rgba(5, 8, 16, 0.97)';
+    } else {
+      nav.style.background = 'rgba(5, 8, 16, 0.85)';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xavvi — 重新定义创作者经济</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050810;
+    --bg2: #080d1a;
+    --bg3: #0c1224;
+    --blue: #3b82f6;
+    --blue-b: #60a5fa;
+    --purple: #8b5cf6;
+    --purple-b: #a78bfa;
+    --gold: #f59e0b;
+    --green: #10b981;
+    --red: #ef4444;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: rgba(255,255,255,0.07);
+    --card-bg: rgba(12,18,36,0.8);
+    --glow-blue: rgba(59,130,246,0.15);
+    --glow-purple: rgba(139,92,246,0.15);
+    --glow-gold: rgba(245,158,11,0.15);
+    --glow-green: rgba(16,185,129,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', 'Space Grotesk', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── GRID NOISE BACKGROUND ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── TYPOGRAPHY ─── */
+  h1, h2, h3, .font-grotesk {
+    font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, var(--text) 0%, var(--blue-b) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(5,8,16,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 1rem;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .nav-logo img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .nav-logo-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--blue-b), var(--purple-b));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover {
+    color: var(--text);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .nav-cta {
+    background: linear-gradient(135deg, var(--gold), #d97706);
+    color: #000 !important;
+    padding: 0.5rem 1.2rem !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    font-size: 0.88rem !important;
+    transition: all 0.2s !important;
+    box-shadow: 0 0 20px rgba(245,158,11,0.3);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 30px rgba(245,158,11,0.5) !important;
+    background: rgba(0,0,0,0) !important;
+    background: linear-gradient(135deg, #fbbf24, var(--gold)) !important;
+  }
+
+  /* Hamburger */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 64px;
+      left: 0; right: 0;
+      background: rgba(5,8,16,0.98);
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      gap: 0.25rem;
+    }
+    .nav-links.open a {
+      padding: 0.6rem 1rem;
+    }
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 2rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    padding: 4rem 2rem 6rem;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 50%, rgba(59,130,246,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 30%, rgba(139,92,246,0.08) 0%, transparent 60%);
+  }
+
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.3);
+    border-radius: 100px;
+    padding: 0.4rem 1.2rem;
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+
+  .hero-badge-dot {
+    color: var(--muted);
+  }
+
+  h1.hero-title {
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, var(--blue-b) 50%, var(--purple-b) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--muted);
+    max-width: 620px;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-bottom: 3rem;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--card-bg);
+  }
+
+  .hero-stat {
+    flex: 1;
+    min-width: 140px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .hero-stat:last-child { border-right: none; }
+
+  .hero-stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    font-weight: 700;
+    color: var(--blue-b);
+    display: block;
+  }
+
+  .hero-stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    padding: 0.85rem 2rem;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 0 20px rgba(59,130,246,0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 35px rgba(59,130,246,0.5);
+  }
+
+  .btn-outline {
+    padding: 0.85rem 2rem;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--blue);
+    color: var(--blue-b);
+    background: rgba(59,130,246,0.05);
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(59,130,246,0.03));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .card:hover {
+    border-color: rgba(59,130,246,0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(59,130,246,0.08);
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .card-body {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  /* ─── SECTION 2: PAIN POINTS ─── */
+  #ecosystem {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  .pain-card {
+    border-color: var(--border);
+  }
+
+  .pain-card:nth-child(1) { border-top: 2px solid var(--blue); }
+  .pain-card:nth-child(2) { border-top: 2px solid var(--purple); }
+  .pain-card:nth-child(3) { border-top: 2px solid var(--gold); }
+
+  /* ─── SECTION 3: PRODUCTS ─── */
+  #products {
+    background: var(--bg2);
+  }
+
+  .grid-2x2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .grid-2x2 { grid-template-columns: 1fr; }
+  }
+
+  .product-card ul {
+    list-style: none;
+    margin-top: 0.75rem;
+  }
+
+  .product-card ul li {
+    color: var(--muted);
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .product-card ul li::before {
+    content: '→';
+    color: var(--blue-b);
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  .product-card:nth-child(1) { border-top: 2px solid var(--blue); }
+  .product-card:nth-child(2) { border-top: 2px solid var(--gold); }
+  .product-card:nth-child(3) { border-top: 2px solid var(--purple); }
+  .product-card:nth-child(4) { border-top: 2px solid var(--green); }
+
+  /* ─── SECTION 4: FLOW ─── */
+  #flow {
+    background: var(--bg3);
+  }
+
+  .flow-wrap {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .flow-step {
+    flex: 1;
+    min-width: 160px;
+    max-width: 220px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .flow-step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin: 0 auto 0.75rem;
+  }
+
+  .flow-step-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--blue-b);
+    font-size: 1.2rem;
+    padding: 0 0.25rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 700px) {
+    .flow-wrap { flex-direction: column; align-items: center; }
+    .flow-arrow { transform: rotate(90deg); }
+    .flow-step { max-width: 100%; width: 100%; }
+  }
+
+  /* ─── SECTION 5: PARTICIPANTS ─── */
+  #participants {
+    background: linear-gradient(180deg, var(--bg3) 0%, var(--bg2) 100%);
+  }
+
+  .participant-card:nth-child(1) { border-top: 2px solid var(--blue); }
+  .participant-card:nth-child(2) { border-top: 2px solid var(--purple); }
+  .participant-card:nth-child(3) { border-top: 2px solid var(--green); }
+  .participant-card:nth-child(4) { border-top: 2px solid var(--gold); }
+
+  /* ─── SECTION 6: DATA ─── */
+  #data {
+    background: var(--bg2);
+  }
+
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .data-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 500px) {
+    .data-grid { grid-template-columns: 1fr; }
+  }
+
+  .data-card {
+    text-align: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .data-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .data-card:hover::after { transform: scaleX(1); }
+
+  .data-card:hover {
+    border-color: rgba(59,130,246,0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  }
+
+  .data-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--blue-b), var(--purple-b));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .data-label {
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* ─── SECTION 7: WEALTH PATH ─── */
+  #wealth {
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #wealth::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(139,92,246,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .timeline {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .timeline-step {
+    flex: 1;
+    min-width: 160px;
+    max-width: 240px;
+    text-align: center;
+    padding: 0 1rem;
+    position: relative;
+  }
+
+  .timeline-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 auto 1rem;
+    box-shadow: 0 0 20px rgba(139,92,246,0.3);
+    font-family: 'Space Grotesk', sans-serif;
+    color: white;
+  }
+
+  .timeline-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .timeline-sub {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+  }
+
+  .timeline-arrow {
+    display: flex;
+    align-items: center;
+    padding-top: 26px;
+    color: var(--purple-b);
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 700px) {
+    .timeline { flex-direction: column; align-items: center; }
+    .timeline-arrow { transform: rotate(90deg); padding-top: 0; }
+    .timeline-step { max-width: 100%; width: 100%; }
+  }
+
+  /* ─── SECTION 8: TOKEN ─── */
+  #token {
+    background: var(--bg2);
+  }
+
+  .token-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .token-grid { grid-template-columns: 1fr; }
+  }
+
+  .token-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+
+  .token-card.bfc {
+    border-top: 3px solid var(--gold);
+  }
+
+  .token-card.tda {
+    border-top: 3px solid var(--purple);
+  }
+
+  .token-badge {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .token-badge.bfc { background: rgba(245,158,11,0.15); color: var(--gold); }
+  .token-badge.tda { background: rgba(139,92,246,0.15); color: var(--purple-b); }
+
+  .token-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .token-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .token-points {
+    list-style: none;
+    margin-top: 1rem;
+  }
+
+  .token-points li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    padding: 0.4rem 0;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .token-points li::before {
+    content: '✦';
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .tda .token-points li::before { color: var(--purple-b); }
+
+  .formula-box {
+    background: rgba(16,185,129,0.07);
+    border: 1px solid rgba(16,185,129,0.25);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .formula-label {
+    font-size: 0.8rem;
+    color: var(--green);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .formula-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  .token-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--blue-b);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .token-link:hover {
+    color: var(--purple-b);
+    gap: 0.7rem;
+  }
+
+  /* ─── SECTION 9: PARTNERS ─── */
+  #partner {
+    background: var(--bg3);
+  }
+
+  .partner-card:nth-child(1) { border-top: 2px solid var(--blue); }
+  .partner-card:nth-child(2) { border-top: 2px solid var(--gold); }
+  .partner-card:nth-child(3) { border-top: 2px solid var(--green); }
+
+  .partner-card ul {
+    list-style: none;
+    margin-top: 0.75rem;
+  }
+
+  .partner-card ul li {
+    color: var(--muted);
+    font-size: 0.88rem;
+    padding: 0.3rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .partner-card ul li::before {
+    content: '◆';
+    font-size: 0.5rem;
+    color: var(--blue-b);
+    flex-shrink: 0;
+    margin-top: 0.35rem;
+  }
+
+  /* ─── SECTION 10: CTA ─── */
+  #contact {
+    background: linear-gradient(180deg, var(--bg3) 0%, var(--bg) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #contact::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(59,130,246,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .cta-subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .cta-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 900px) {
+    .cta-cards { grid-template-columns: 1fr; }
+  }
+
+  .cta-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-card::before {
+    content: '';
+    position: absolute;
+    inset: -100%;
+    background: radial-gradient(circle at center, rgba(59,130,246,0.15) 0%, transparent 60%);
+    transition: all 0.5s;
+    opacity: 0;
+  }
+
+  .cta-card:hover::before {
+    inset: 0;
+    opacity: 1;
+  }
+
+  .cta-card:nth-child(1):hover::before {
+    background: radial-gradient(circle at center, rgba(59,130,246,0.15) 0%, transparent 60%);
+  }
+
+  .cta-card:nth-child(2):hover::before {
+    background: radial-gradient(circle at center, rgba(139,92,246,0.15) 0%, transparent 60%);
+  }
+
+  .cta-card:nth-child(3):hover::before {
+    background: radial-gradient(circle at center, rgba(245,158,11,0.15) 0%, transparent 60%);
+  }
+
+  .cta-card:hover {
+    border-color: rgba(59,130,246,0.35);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(59,130,246,0.1);
+  }
+
+  .cta-card:nth-child(2):hover {
+    border-color: rgba(139,92,246,0.35);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(139,92,246,0.1);
+  }
+
+  .cta-card:nth-child(3):hover {
+    border-color: rgba(245,158,11,0.35);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(245,158,11,0.1);
+  }
+
+  .cta-card-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .cta-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-card-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-card-btn {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .cta-card:nth-child(1) .cta-card-btn {
+    background: rgba(59,130,246,0.15);
+    border: 1px solid rgba(59,130,246,0.4);
+    color: var(--blue-b);
+  }
+
+  .cta-card:nth-child(2) .cta-card-btn {
+    background: rgba(139,92,246,0.15);
+    border: 1px solid rgba(139,92,246,0.4);
+    color: var(--purple-b);
+  }
+
+  .cta-card:nth-child(3) .cta-card-btn {
+    background: rgba(245,158,11,0.15);
+    border: 1px solid rgba(245,158,11,0.4);
+    color: var(--gold);
+  }
+
+  .cta-email {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .cta-email a {
+    color: var(--blue-b);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .cta-email a:hover {
+    color: var(--purple-b);
+    text-decoration: underline;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer a {
+    color: var(--blue-b);
+    text-decoration: none;
+  }
+
+  footer a:hover { text-decoration: underline; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  .fade-in-up.delay-1 { animation-delay: 0.1s; }
+  .fade-in-up.delay-2 { animation-delay: 0.2s; }
+  .fade-in-up.delay-3 { animation-delay: 0.3s; }
+  .fade-in-up.delay-4 { animation-delay: 0.4s; }
+
+  /* Scroll reveal — always visible (no JS dependency) */
+  .reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── MISC ─── */
+  .alt-bg { background: var(--bg); }
+
+  .section-sub {
+    text-align: center;
+    color: var(--muted);
+    font-size: 1rem;
+    margin-top: -2rem;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--blue); }
+
+  /* ─── LANG SWITCHER ─── */
+  .lang-switcher{display:flex;gap:4px;align-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:100px;padding:4px;flex-shrink:0}
+  .lang-btn{background:transparent;border:none;cursor:pointer;color:var(--muted);font-size:0.78rem;font-weight:600;font-family:inherit;padding:5px 14px;border-radius:100px;transition:background 0.3s,color 0.3s;letter-spacing:0.05em}
+  .lang-btn.active{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff}
+  .lang-btn:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.08)}
+  /* ─── EVENTS ─── */
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  .events-videos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .event-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .event-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(139,92,246,0.4);
+  }
+  .event-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+  }
+  .event-card-body {
+    padding: 14px 16px;
+  }
+  .event-card-body .event-tag {
+    display: inline-block;
+    background: rgba(245,158,11,0.12);
+    border: 1px solid rgba(245,158,11,0.3);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 2px 10px;
+    border-radius: 100px;
+    margin-bottom: 8px;
+  }
+  .event-card-body p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .event-video-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+  }
+  .event-video-card video {
+    width: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    display: block;
+  }
+  .event-video-card .event-card-body {
+    padding: 14px 16px;
+  }
+  @media (max-width: 768px) {
+    .events-grid { grid-template-columns: 1fr; }
+    .events-videos { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">
+      <img src="xavvi-logo.png" alt="Xavvi Logo" onerror="this.style.display='none'">
+      <span class="nav-logo-text">Xavvi</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#ecosystem" data-i18n="nav-ecosystem">生态</a></li>
+      <li><a href="#products" data-i18n="nav-products">产品</a></li>
+      <li><a href="#token" data-i18n="nav-token">代币</a></li>
+      <li><a href="#data" data-i18n="nav-data">数据</a></li>
+      <li><a href="#events" data-i18n="nav-events">活动</a></li>
+      <li><a href="#partner" data-i18n="nav-partner">合作</a></li>
+      <li><a href="#contact" class="nav-cta" data-i18n="nav-cta">立即合作</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="zh">中文</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <button class="nav-hamburger" id="hamburger" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── SECTION 1: HERO ─── -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge fade-in-up">
+      <span>🏆</span>
+      <span data-i18n="hero-badge-uk">英国TikTok服务商 #1</span>
+      <span class="hero-badge-dot">·</span>
+      <span data-i18n="hero-badge-loreal">欧莱雅单月£800万业绩</span>
+    </div>
+    <h1 class="hero-title fade-in-up delay-1" data-i18n="hero-title">重新定义<br>创作者经济</h1>
+    <p class="hero-sub fade-in-up delay-2" data-i18n="hero-sub">AI × Web3 × 创作者，构建属于创作者的数字资产帝国</p>
+    <div class="hero-stats fade-in-up delay-3">
+      <div class="hero-stat">
+        <span class="hero-stat-num">10,000+</span>
+        <div class="hero-stat-label" data-i18n="stat-creators">签约网红</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">70%</span>
+        <div class="hero-stat-label" data-i18n="stat-revshare">广告分成</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">50+</span>
+        <div class="hero-stat-label" data-i18n="stat-languages">语言支持</div>
+      </div>
+    </div>
+    <div class="hero-ctas fade-in-up delay-4">
+      <a href="#ecosystem" class="btn-primary" data-i18n="hero-btn-explore">了解生态</a>
+      <a href="#contact" class="btn-outline" data-i18n="hero-btn-partner">成为合作伙伴</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 2: PAIN POINTS ─── -->
+<section id="ecosystem">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="pain-title">行业痛点，我们全都解决</h2>
+    <div class="grid-3">
+      <div class="card pain-card reveal">
+        <span class="card-icon">🏬</span>
+        <div class="card-title" data-i18n="pain1-title">品牌商家</div>
+        <div class="card-body" data-i18n="pain1-desc">
+          流量贵、ROI难追踪，网红合作往往是一次性消耗。投入大量预算却无法确认转化效果，品牌与创作者之间缺乏可持续的合作机制。
+        </div>
+      </div>
+      <div class="card pain-card reveal">
+        <span class="card-icon">⭐</span>
+        <div class="card-title" data-i18n="pain2-title">网红创作者</div>
+        <div class="card-body" data-i18n="pain2-desc">
+          平台抽成高，创作者仅能拿到 <strong style="color:var(--red)">45%</strong>。数据不属于自己，粉丝关系被平台绑架，多年积累的影响力无法真正变现为资产。
+        </div>
+      </div>
+      <div class="card pain-card reveal">
+        <span class="card-icon">🎉</span>
+        <div class="card-title" data-i18n="pain3-title">粉丝</div>
+        <div class="card-body" data-i18n="pain3-desc">
+          关注、点赞、分享，忠诚度无法量化，更无法变现。粉丝是生态最重要的参与者，却从未获得任何价值回报。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 3: PRODUCTS ─── -->
+<section id="products">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="products-title">一个平台，四大引擎</h2>
+    <div class="grid-2x2">
+      <div class="card product-card reveal">
+        <span class="card-icon">📱</span>
+        <div class="card-title">Xavvi APP</div>
+        <ul>
+          <li data-i18n="product1-li1">AI数字分身 24/7 全天候代运营</li>
+          <li data-i18n="product1-li2">50+ 语言实时翻译，触达全球粉丝</li>
+          <li data-i18n="product1-li3">创作者与粉丝互动核心枢纽</li>
+          <li data-i18n="product1-li4">链上数据确权，内容资产化</li>
+        </ul>
+      </div>
+      <div class="card product-card reveal">
+        <span class="card-icon">📢</span>
+        <div class="card-title">Xavvi AD</div>
+        <ul>
+          <li data-i18n="product2-li1">AI 精准广告匹配引擎</li>
+          <li data-i18n="product2-li2">直达网红私域流量，零中间商</li>
+          <li data-i18n="product2-li3">广告分成 <strong style="color:var(--gold)">70%</strong>（vs Web2 的 45%）</li>
+          <li data-i18n="product2-li4">链上透明结算，实时可追踪</li>
+        </ul>
+      </div>
+      <div class="card product-card reveal">
+        <span class="card-icon">🪙</span>
+        <div class="card-title">Xavvi TDA</div>
+        <ul>
+          <li data-i18n="product3-li1">一星一币，总量 1 亿枚永不增发</li>
+          <li data-i18n="product3-li2">消费即挖矿，链上数据确权</li>
+          <li data-i18n="product3-li3">用后即销毁，极度通缩机制</li>
+          <li data-i18n="product3-li4">创作者专属数据资产代币</li>
+        </ul>
+      </div>
+      <div class="card product-card reveal">
+        <span class="card-icon">🏭</span>
+        <div class="card-title">Xavvi Brand Lab</div>
+        <ul>
+          <li data-i18n="product4-li1">网红驱动全栈品牌孵化</li>
+          <li data-i18n="product4-li2">2–3 天极速跨境配送</li>
+          <li data-i18n="product4-li3">美国 300 万平方英尺仓储网络</li>
+          <li data-i18n="product4-li4">从内容到商品，闭环变现</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 4: FLOW ─── -->
+<section id="flow">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="flow-title">资金如何在生态里流转</h2>
+    <div class="flow-wrap reveal">
+      <div class="flow-step">
+        <div class="flow-step-num">1</div>
+        <div class="flow-step-text" data-i18n="flow-step1">品牌投入<br>USDT</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-step-num">2</div>
+        <div class="flow-step-text" data-i18n="flow-step2">智能合约<br>发放BFC筹码</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-step-num">3</div>
+        <div class="flow-step-text" data-i18n="flow-step3">商家指定<br>网红投放</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-step-num">4</div>
+        <div class="flow-step-text" data-i18n="flow-step4" style="font-size:0.78rem">
+          <span style="color:var(--green)">70%</span> 网红收益<br>
+          <span style="color:var(--red)">15%</span> 销毁通缩<br>
+          <span style="color:var(--blue-b)">15%</span> 平台运营
+        </div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-step-num">5</div>
+        <div class="flow-step-text" data-i18n="flow-step5">TDA通缩<br>升值持续循环</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 5: PARTICIPANTS ─── -->
+<section id="participants">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="participants-title">四类参与者，共赢生态</h2>
+    <div class="grid-2x2">
+      <div class="card participant-card reveal">
+        <span class="card-icon">🏬</span>
+        <div class="card-title" data-i18n="participant1-title">品牌 / 商家</div>
+        <div class="card-body" data-i18n="participant1-desc">
+          用 USDT 换取 BFC 进入生态，AI 智能匹配最精准的网红资源，投放全程链上可追踪，ROI 数据实时透明。
+        </div>
+      </div>
+      <div class="card participant-card reveal">
+        <span class="card-icon">⭐</span>
+        <div class="card-title" data-i18n="participant2-title">网红 / KOL</div>
+        <div class="card-body" data-i18n="participant2-desc">
+          AI 数字分身 7×24 小时代为接单，享有行业最高 <strong style="color:var(--purple-b)">70%</strong> 广告分成，TDA 代币随时间持续升值，影响力真正成为数字资产。
+        </div>
+      </div>
+      <div class="card participant-card reveal">
+        <span class="card-icon">🎉</span>
+        <div class="card-title" data-i18n="participant3-title">粉丝</div>
+        <div class="card-body" data-i18n="participant3-desc">
+          互动消费即挖矿，获取专属 TDA 代币，解锁创作者专属特权内容与权益，忠诚度首次被量化并可变现。
+        </div>
+      </div>
+      <div class="card participant-card reveal">
+        <span class="card-icon">💼</span>
+        <div class="card-title" data-i18n="participant4-title">投资者</div>
+        <div class="card-body" data-i18n="participant4-desc">
+          参与 StarFi 基金，以 USDT 入场做庄，90 天预期回报 <strong style="color:var(--gold)">100–300%</strong>，参与下一个创作者经济独角兽的早期成长。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 6: DATA ─── -->
+<section id="data">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="data-title">用数据说话</h2>
+    <div class="data-grid">
+      <div class="data-card reveal">
+        <span class="data-num">$2亿</span>
+        <div class="data-label" data-i18n="data1-label">B轮估值</div>
+      </div>
+      <div class="data-card reveal">
+        <span class="data-num">10,000+</span>
+        <div class="data-label" data-i18n="data2-label">签约网红目标</div>
+      </div>
+      <div class="data-card reveal">
+        <span class="data-num">70%</span>
+        <div class="data-label" data-i18n="data3-label">创作者广告分成</div>
+      </div>
+      <div class="data-card reveal">
+        <span class="data-num">£800万</span>
+        <div class="data-label" data-i18n="data4-label">欧莱雅单月业绩</div>
+      </div>
+      <div class="data-card reveal">
+        <span class="data-num">240</span>
+        <div class="data-label" data-i18n="data5-label">全球可信节点</div>
+      </div>
+      <div class="data-card reveal">
+        <span class="data-num">$4800亿</span>
+        <div class="data-label" data-i18n="data6-label">目标市场规模</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 7: WEALTH PATH ─── -->
+<section id="wealth">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="wealth-title">创作者的财富路径</h2>
+    <p class="section-sub reveal" data-i18n="wealth-sub">从第一笔广告收入到纳斯达克上市，Xavvi 为每一位创作者设计完整的财富成长通道</p>
+    <div class="timeline">
+      <div class="timeline-step reveal">
+        <div class="timeline-circle">①</div>
+        <div class="timeline-text" data-i18n="wealth-step1-text">AI数字分身<br>赚取广告费</div>
+        <div class="timeline-sub" data-i18n="wealth-step1-sub">24/7 被动收入，无需亲自接单</div>
+      </div>
+      <div class="timeline-arrow reveal">→</div>
+      <div class="timeline-step reveal">
+        <div class="timeline-circle">②</div>
+        <div class="timeline-text" data-i18n="wealth-step2-text">TDA数据资产<br>持续升值</div>
+        <div class="timeline-sub" data-i18n="wealth-step2-sub">影响力上链，随生态增长增值</div>
+      </div>
+      <div class="timeline-arrow reveal">→</div>
+      <div class="timeline-step reveal">
+        <div class="timeline-circle">③</div>
+        <div class="timeline-text" data-i18n="wealth-step3-text">个人品牌孵化<br>闭环变现</div>
+        <div class="timeline-sub" data-i18n="wealth-step3-sub">Brand Lab 全栈支持，粉丝转化客户</div>
+      </div>
+      <div class="timeline-arrow reveal">→</div>
+      <div class="timeline-step reveal">
+        <div class="timeline-circle">④</div>
+        <div class="timeline-text" data-i18n="wealth-step4-text">纳斯达克上市<br>共享市值</div>
+        <div class="timeline-sub" data-i18n="wealth-step4-sub">早期参与者共享上市红利</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 8: TOKEN ─── -->
+<section id="token">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="token-title">BFC × TDA 代币经济</h2>
+    <div class="token-grid reveal">
+      <div class="token-card bfc">
+        <div class="token-badge bfc" data-i18n="token-bfc-badge">BFC 广告币</div>
+        <div class="token-name" data-i18n="token-bfc-name">广告流通筹码</div>
+        <div class="token-desc" data-i18n="token-bfc-desc">赌场筹码逻辑 — 进入 Xavvi 生态必须先将 USDT 换成 BFC，底池 USDT 随时可按 8 折赎回，形成强力锚定。</div>
+        <ul class="token-points">
+          <li data-i18n="token-bfc-li1">进入生态的唯一通行凭证</li>
+          <li data-i18n="token-bfc-li2">USDT 底池支撑，8折保底赎回</li>
+          <li data-i18n="token-bfc-li3">广告投放后按比例销毁，持续通缩</li>
+          <li data-i18n="token-bfc-li4">智能合约自动结算，链上透明</li>
+        </ul>
+      </div>
+      <div class="token-card tda">
+        <div class="token-badge tda" data-i18n="token-tda-badge">TDA 数据资产币</div>
+        <div class="token-name" data-i18n="token-tda-name">创作者专属资产</div>
+        <div class="token-desc" data-i18n="token-tda-desc">每位网红拥有专属 TDA 系列，总量 1 亿枚永不增发，每次广告投放后立即销毁，通缩机制驱动价值长期上升。</div>
+        <ul class="token-points">
+          <li data-i18n="token-tda-li1">一星一币，每位创作者独有</li>
+          <li data-i18n="token-tda-li2">总量 1 亿枚，绝对永不增发</li>
+          <li data-i18n="token-tda-li3">消费即挖矿，链上数据确权</li>
+          <li data-i18n="token-tda-li4">用后立即销毁，极度通缩</li>
+        </ul>
+      </div>
+    </div>
+    <div class="formula-box reveal">
+      <div class="formula-label" data-i18n="formula-label">核心定价公式</div>
+      <div class="formula-text" data-i18n="formula-text">BFC 价格 = TDA 金库总价值 ÷ BFC 总流通量</div>
+    </div>
+    <div style="text-align:center">
+      <a href="bfc-tda.html" class="token-link reveal" data-i18n="token-link">
+        查看完整 BFC × TDA 图解 →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION: EVENTS ─── -->
+<section id="events" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-tag reveal" data-i18n="events-tag">📸 真实现场</div>
+    <h2 class="section-title reveal" data-i18n="events-title">往期活动现场</h2>
+    <p class="section-sub reveal" style="margin-bottom:36px" data-i18n="events-sub">Creator Showroom Academy — 网红签约、培训、合作，全程在洛杉矶 Xavvi 总部进行</p>
+
+    <!-- 重点案例：Leon Zellers -->
+    <div class="reveal" style="background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(59,130,246,0.07));border:1px solid rgba(139,92,246,0.35);border-radius:var(--radius);padding:24px;margin-bottom:28px;display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+      <div style="display:flex;gap:16px;flex:1;min-width:280px">
+        <img src="events/leon_tiktok.jpg" alt="Leon Zellers TikTok" style="width:120px;border-radius:12px;object-fit:cover;flex-shrink:0;border:2px solid rgba(139,92,246,0.4)"/>
+        <div>
+          <div style="display:inline-block;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);color:var(--gold);font-size:10px;font-weight:700;letter-spacing:0.08em;padding:2px 10px;border-radius:100px;margin-bottom:8px" data-i18n="leon-badge">⭐ 签约明星网红</div>
+          <div style="font-size:20px;font-weight:900;color:var(--text);margin-bottom:4px">Leon Zellers</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px">@leonzellers · Singer / Artist / Actor</div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap">
+            <div style="text-align:center"><div style="font-family:'Space Grotesk',monospace;font-size:18px;font-weight:900;color:var(--purple-b)">3.8M</div><div style="font-size:10px;color:var(--muted)" data-i18n="leon-tiktok-fans">TikTok 粉丝</div></div>
+            <div style="text-align:center"><div style="font-family:'Space Grotesk',monospace;font-size:18px;font-weight:900;color:var(--blue-b)">58.8M</div><div style="font-size:10px;color:var(--muted)" data-i18n="leon-tiktok-likes">TikTok 点赞</div></div>
+            <div style="text-align:center"><div style="font-family:'Space Grotesk',monospace;font-size:18px;font-weight:900;color:var(--gold)">20.9M</div><div style="font-size:10px;color:var(--muted)" data-i18n="leon-top-views">单视频最高播放</div></div>
+          </div>
+        </div>
+      </div>
+      <img src="events/leon_signing.jpg" alt="Leon Zellers 签约 Xavvi" style="width:260px;border-radius:12px;object-fit:cover;border:2px solid rgba(139,92,246,0.4);flex-shrink:0"/>
+    </div>
+
+    <!-- 照片 3 列 -->
+    <div class="events-grid">
+      <div class="event-card reveal">
+        <img src="events/event1.jpg" alt="网红签约现场" loading="lazy"/>
+        <div class="event-card-body">
+          <span class="event-tag" data-i18n="event1-tag">✍️ 网红签约</span>
+          <p data-i18n="event1-desc">Creator Showroom Academy 签约现场，网红与 Xavvi 团队完成正式合约签署，正式加入生态。</p>
+        </div>
+      </div>
+      <div class="event-card reveal">
+        <img src="events/event2.jpg" alt="网红到访 Xavvi 总部" loading="lazy"/>
+        <div class="event-card-body">
+          <span class="event-tag" data-i18n="event2-tag">🏢 总部到访</span>
+          <p data-i18n="event2-desc">网红到访 Xavvi 洛杉矶总部，体验 AI 数字分身制作流程，"We help you sell like crazy!"</p>
+        </div>
+      </div>
+      <div class="event-card reveal">
+        <img src="events/event3.jpg" alt="合作签约仪式" loading="lazy"/>
+        <div class="event-card-body">
+          <span class="event-tag" data-i18n="event3-tag">🤝 战略合作</span>
+          <p data-i18n="event3-desc">Xavvi 与签约网红完成战略合作协议，共同开启 TDA 数字资产与 AI 广告变现新旅程。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 视频 2 列 -->
+    <div class="events-videos">
+      <div class="event-video-card reveal">
+        <video controls preload="metadata" poster="">
+          <source src="events/event_video1.mp4" type="video/mp4"/>
+        </video>
+        <div class="event-card-body">
+          <span class="event-tag" data-i18n="video1-tag">🎬 活动视频</span>
+          <p data-i18n="video1-desc">Creator Showroom Academy 活动实录，见证网红与品牌共同成长的真实故事。</p>
+        </div>
+      </div>
+      <div class="event-video-card reveal">
+        <video controls preload="metadata" poster="">
+          <source src="events/event_video2.mp4" type="video/mp4"/>
+        </video>
+        <div class="event-card-body">
+          <span class="event-tag" data-i18n="video2-tag">🎬 活动视频</span>
+          <p data-i18n="video2-desc">Xavvi 签约网红分享入驻心得，AI 数字分身如何帮助他们实现 24/7 被动收益。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 9: PARTNERS ─── -->
+<section id="partner">
+  <div class="container">
+    <h2 class="section-title reveal" data-i18n="partner-title">寻找志同道合的伙伴</h2>
+    <div class="grid-3">
+      <div class="card partner-card reveal">
+        <span class="card-icon">🤖</span>
+        <div class="card-title" data-i18n="partner1-title">技术伙伴</div>
+        <ul>
+          <li data-i18n="partner1-li1">AI / Web3 核心开发</li>
+          <li data-i18n="partner1-li2">大数据分析与算法</li>
+          <li data-i18n="partner1-li3">区块链基础设施建设</li>
+          <li data-i18n="partner1-li4">智能合约审计与优化</li>
+        </ul>
+      </div>
+      <div class="card partner-card reveal">
+        <span class="card-icon">💰</span>
+        <div class="card-title" data-i18n="partner2-title">金融伙伴</div>
+        <ul>
+          <li data-i18n="partner2-li1">基金投资人 / LP</li>
+          <li data-i18n="partner2-li2">全球渠道分销商</li>
+          <li data-i18n="partner2-li3">StarFi 联合做庄</li>
+          <li data-i18n="partner2-li4">交易所上币合作</li>
+        </ul>
+      </div>
+      <div class="card partner-card reveal">
+        <span class="card-icon">🏭</span>
+        <div class="card-title" data-i18n="partner3-title">供应链伙伴</div>
+        <ul>
+          <li data-i18n="partner3-li1">商品工厂 / ODM 合作</li>
+          <li data-i18n="partner3-li2">跨境物流与配送</li>
+          <li data-i18n="partner3-li3">仓储运营与管理</li>
+          <li data-i18n="partner3-li4">清关与合规支持</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 10: CTA ─── -->
+<section id="contact">
+  <div class="container">
+    <h2 class="cta-title reveal" data-i18n="cta-title">准备好加入了吗？</h2>
+    <p class="cta-subtitle reveal" data-i18n="cta-subtitle">选择你的身份，开始在 Xavvi 生态创造真实价值</p>
+    <div class="cta-cards">
+      <div class="cta-card reveal">
+        <span class="cta-card-icon">🏬</span>
+        <div class="cta-card-title" data-i18n="cta1-title">我是品牌商家</div>
+        <div class="cta-card-desc" data-i18n="cta1-desc">用 BFC 投放全球网红流量，AI 精准匹配，ROI 链上可追踪，告别低效广告投放。</div>
+        <a href="mailto:peter@xavvi.com?subject=品牌商家合作咨询" class="cta-card-btn" data-i18n="cta1-btn">开始投放</a>
+      </div>
+      <div class="cta-card reveal">
+        <span class="cta-card-icon">⭐</span>
+        <div class="cta-card-title" data-i18n="cta2-title">我是网红 / KOL</div>
+        <div class="cta-card-desc" data-i18n="cta2-desc">让 AI 数字分身帮你 24/7 赚钱，享受行业最高 70% 分成，将影响力变成永久增值的数字资产。</div>
+        <a href="mailto:peter@xavvi.com?subject=网红/KOL入驻申请" class="cta-card-btn" data-i18n="cta2-btn">立即入驻</a>
+      </div>
+      <div class="cta-card reveal">
+        <span class="cta-card-icon">💼</span>
+        <div class="cta-card-title" data-i18n="cta3-title">我是投资人</div>
+        <div class="cta-card-desc" data-i18n="cta3-desc">StarFi 基金，以 USDT 入场，90 天预期回报 100–300%，参与创作者经济的 Web3 变革浪潮。</div>
+        <a href="mailto:peter@xavvi.com?subject=StarFi投资人咨询" class="cta-card-btn" data-i18n="cta3-btn">了解机会</a>
+      </div>
+    </div>
+    <div class="cta-email reveal" data-i18n="cta-email">
+      或直接联系我们：<a href="mailto:peter@xavvi.com">peter@xavvi.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p>© 2026 Xavvi Holdings Limited &nbsp;·&nbsp; BVI SPV + Delaware Foundation &nbsp;·&nbsp; <a href="mailto:peter@xavvi.com">peter@xavvi.com</a></p>
+</footer>
+
+<script>
+  // ─── NAV HAMBURGER ───
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+
+  // Close nav on link click (mobile)
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // ─── SCROLL REVEAL ───
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => revealObserver.observe(el));
+
+  // ─── ACTIVE NAV LINK ───
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+
+  const activeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navAnchors.forEach(a => {
+          a.style.color = '';
+        });
+        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+        if (active && !active.classList.contains('nav-cta')) {
+          active.style.color = 'var(--blue-b)';
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => activeObserver.observe(s));
+
+  // ─── ANIMATED COUNTER ───
+  function animateCounter(el) {
+    const text = el.textContent.trim();
+    const match = text.match(/([\$£]?)(\d[\d,.]*)(\+?%?)/);
+    if (!match) return;
+
+    const prefix = match[1];
+    const rawNum = parseFloat(match[2].replace(/,/g, ''));
+    const suffix = match[3];
+
+    if (isNaN(rawNum)) return;
+
+    const duration = 1500;
+    const start = performance.now();
+
+    function update(now) {
+      const elapsed = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - elapsed, 3);
+      const current = rawNum * eased;
+
+      let display;
+      if (rawNum >= 1000000000) {
+        display = (current / 1000000000).toFixed(1) + '亿';
+      } else if (rawNum >= 100000000) {
+        display = (current / 100000000).toFixed(0) + '亿';
+      } else if (rawNum >= 10000) {
+        display = Math.round(current).toLocaleString();
+      } else if (Number.isInteger(rawNum)) {
+        display = Math.round(current).toString();
+      } else {
+        display = current.toFixed(1);
+      }
+
+      el.textContent = prefix + display + suffix;
+
+      if (elapsed < 1) requestAnimationFrame(update);
+      else el.textContent = text; // restore original
+    }
+    requestAnimationFrame(update);
+  }
+
+  const dataCards = document.querySelectorAll('.data-num');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  dataCards.forEach(el => counterObserver.observe(el));
+</script>
+
+<script>
+/* ─── i18n ─── */
+const T = {
+  zh: {},
+  en: {
+    "nav-ecosystem": "Ecosystem",
+    "nav-products": "Products",
+    "nav-token": "Token",
+    "nav-data": "Data",
+    "nav-events": "Events",
+    "nav-partner": "Partners",
+    "nav-cta": "Partner With Us",
+
+    "hero-badge-uk": "UK TikTok Service Provider #1",
+    "hero-badge-loreal": "L'Oréal UK £8M Monthly Revenue",
+    "hero-title": "Redefining the<br>Creator Economy",
+    "hero-sub": "AI × Web3 × Creators — Building a Digital Asset Empire for Creators",
+    "stat-valuation": "Valuation · Series B",
+    "stat-creators": "Signed Creators",
+    "stat-revshare": "Ad Revenue Share",
+    "stat-languages": "Languages Supported",
+    "hero-btn-explore": "Explore Ecosystem",
+    "hero-btn-partner": "Become a Partner",
+
+    "pain-title": "Industry Pain Points — We Solve Them All",
+    "pain1-title": "Brands & Merchants",
+    "pain1-desc": "Traffic is expensive and ROI is hard to track. Influencer deals are one-off and non-scalable.",
+    "pain2-title": "Creators & KOLs",
+    "pain2-desc": "Platforms only pay 45%, you don't own your data, and monetizing your fanbase is nearly impossible.",
+    "pain3-title": "Fans",
+    "pain3-desc": "Likes and follows give you nothing. Loyalty and engagement have no tangible value.",
+
+    "products-title": "One Platform, Four Engines",
+    "product1-li1": "AI Digital Twin — 24/7 automated operations",
+    "product1-li2": "50+ language real-time translation, global reach",
+    "product1-li3": "Core creator-fan engagement hub",
+    "product1-li4": "On-chain data ownership, content as asset",
+    "product2-li1": "AI precision ad matching engine",
+    "product2-li2": "Direct access to creator private audiences",
+    "product2-li3": "Ad revenue share <strong style=\"color:var(--gold)\">70%</strong> (vs 45% on Web2)",
+    "product2-li4": "On-chain transparent settlement, real-time tracking",
+    "product3-li1": "One creator one coin — 100M fixed supply, never minted again",
+    "product3-li2": "Spend-to-mine, on-chain data ownership",
+    "product3-li3": "Burned after use — extreme deflationary mechanism",
+    "product3-li4": "Creator-exclusive data asset token",
+    "product4-li1": "Influencer-driven full-stack brand incubator",
+    "product4-li2": "2–3 day ultra-fast cross-border delivery",
+    "product4-li3": "3 million sq ft US warehouse network",
+    "product4-li4": "Content to commerce — closed-loop monetization",
+
+    "flow-title": "How Money Flows Through the Ecosystem",
+    "flow-step1": "Brands<br>Deposit USDT",
+    "flow-step2": "Smart Contract<br>Issues BFC Chips",
+    "flow-step3": "Merchants Target<br>Creators",
+    "flow-step4": "70% Creator<br>15% Burned<br>15% Platform",
+    "flow-step5": "TDA Deflation<br>& Appreciation Loop",
+
+    "participants-title": "Four Roles, One Winning Ecosystem",
+    "participant1-title": "Brands / Merchants",
+    "participant1-desc": "Buy BFC with USDT, AI-matched creators, trackable ROI on-chain.",
+    "participant2-title": "Creators / KOLs",
+    "participant2-desc": "AI Twin handles orders 24/7, 70% revenue share, TDA asset appreciates with influence.",
+    "participant3-title": "Fans",
+    "participant3-desc": "Engage and shop to mine TDA tokens, unlock exclusive creator perks.",
+    "participant4-title": "Investors",
+    "participant4-desc": "StarFi Fund — 100–300% return in 90 days, BVI + Delaware dual-layer structure.",
+
+    "data-title": "The Numbers Speak",
+    "data1-label": "Series B Valuation",
+    "data2-label": "Creator Target",
+    "data3-label": "Creator Revenue Share",
+    "data4-label": "L'Oréal Monthly Revenue",
+    "data5-label": "Global Trusted Nodes",
+    "data6-label": "Target Market Size",
+
+    "wealth-title": "Creator Wealth Journey",
+    "wealth-sub": "From your first ad payment to Nasdaq IPO — Xavvi designs a complete wealth-building path for every creator",
+    "wealth-step1-text": "AI Twin<br>Earns Ad Revenue",
+    "wealth-step1-sub": "24/7 passive income — no manual work needed",
+    "wealth-step2-text": "TDA Data Asset<br>Appreciates",
+    "wealth-step2-sub": "Influence on-chain, value grows with the ecosystem",
+    "wealth-step3-text": "Personal Brand<br>Monetization",
+    "wealth-step3-sub": "Brand Lab full-stack support, fans become customers",
+    "wealth-step4-text": "Nasdaq IPO<br>Share the Market Cap",
+    "wealth-step4-sub": "Early participants share the IPO upside",
+
+    "token-title": "BFC × TDA Token Economy",
+    "token-bfc-badge": "BFC Ad Coin",
+    "token-bfc-name": "Ad Circulation Chip",
+    "token-bfc-desc": "Casino chip logic — enter the Xavvi ecosystem by exchanging USDT for BFC. The USDT pool supports 80% market-price redemption anytime, creating a strong price anchor.",
+    "token-bfc-li1": "The only entry credential into the ecosystem",
+    "token-bfc-li2": "USDT pool backing — redeem at 80% guaranteed",
+    "token-bfc-li3": "Partially burned after each ad campaign — deflationary",
+    "token-bfc-li4": "Smart contract auto-settlement, on-chain transparent",
+    "token-tda-badge": "TDA Data Asset Coin",
+    "token-tda-name": "Creator-Exclusive Asset",
+    "token-tda-desc": "Every creator has their own exclusive TDA series — 100M fixed supply, never minted again. Burned immediately after every ad campaign, driving long-term value appreciation.",
+    "token-tda-li1": "One creator one coin — each series is unique",
+    "token-tda-li2": "100M total supply — absolutely never minted again",
+    "token-tda-li3": "Spend-to-mine, on-chain data ownership",
+    "token-tda-li4": "Burned after use — extreme deflation",
+    "formula-label": "Core Pricing Formula",
+    "formula-text": "BFC Price = Total TDA Vault Value ÷ BFC Total Circulating Supply",
+    "token-link": "View Full BFC × TDA Explainer →",
+
+    "events-tag": "📸 Real Events",
+    "events-title": "Past Events",
+    "events-sub": "Creator Showroom Academy — Creator signings, training, and partnerships at Xavvi HQ in Los Angeles",
+    "leon-badge": "⭐ Featured Signed Creator",
+    "leon-tiktok-fans": "TikTok Followers",
+    "leon-tiktok-likes": "TikTok Likes",
+    "leon-top-views": "Top Video Views",
+    "event1-tag": "✍️ Creator Signing",
+    "event1-desc": "Creator Showroom Academy signing event — creators officially join the Xavvi ecosystem.",
+    "event2-tag": "🏢 HQ Visit",
+    "event2-desc": "Creators visit Xavvi LA HQ to experience the AI Digital Twin production process. \"We help you sell like crazy!\"",
+    "event3-tag": "🤝 Strategic Partnership",
+    "event3-desc": "Xavvi and signed creators complete strategic partnership agreements, launching TDA digital assets and AI ad monetization.",
+    "video1-tag": "🎬 Event Video",
+    "video1-desc": "Creator Showroom Academy event highlights — witness the real stories of creators and brands growing together.",
+    "video2-tag": "🎬 Event Video",
+    "video2-desc": "Signed creators share their onboarding experience and how the AI Digital Twin enables 24/7 passive income.",
+
+    "partner-title": "Find Your Perfect Partner",
+    "partner1-title": "Tech Partners",
+    "partner1-li1": "AI / Web3 core development",
+    "partner1-li2": "Big data analytics & algorithms",
+    "partner1-li3": "Blockchain infrastructure",
+    "partner1-li4": "Smart contract audit & optimization",
+    "partner2-title": "Financial Partners",
+    "partner2-li1": "Fund investors / LPs",
+    "partner2-li2": "Global channel distributors",
+    "partner2-li3": "StarFi co-market making",
+    "partner2-li4": "Exchange listing partnerships",
+    "partner3-title": "Supply Chain Partners",
+    "partner3-li1": "Product factories / ODM cooperation",
+    "partner3-li2": "Cross-border logistics & delivery",
+    "partner3-li3": "Warehousing operations & management",
+    "partner3-li4": "Customs clearance & compliance",
+
+    "cta-title": "Ready to Join?",
+    "cta-subtitle": "Choose your role and start creating real value in the Xavvi ecosystem",
+    "cta1-title": "I'm a Brand",
+    "cta1-desc": "Use BFC to reach global creator audiences. AI precision matching, on-chain trackable ROI — no more wasteful ad spend.",
+    "cta1-btn": "Start Advertising",
+    "cta2-title": "I'm a Creator / KOL",
+    "cta2-desc": "Let your AI Twin earn for you 24/7. Industry-leading 70% revenue share. Turn your influence into a permanently appreciating digital asset.",
+    "cta2-btn": "Join Now",
+    "cta3-title": "I'm an Investor",
+    "cta3-desc": "StarFi Fund — enter with USDT, 100–300% expected return in 90 days. Ride the Web3 creator economy revolution.",
+    "cta3-btn": "Learn More",
+    "cta-email": "📩 Contact us: <a href=\"mailto:peter@xavvi.com\" style=\"color:var(--gold)\">peter@xavvi.com</a>"
+  }
+};
+
+function applyLang(lang) {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (!T.zh[key]) T.zh[key] = el.innerHTML;
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (T[lang] && T[lang][key] !== undefined) el.innerHTML = T[lang][key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[data-lang="${lang}"]`)?.classList.add('active');
+  localStorage.setItem('xavvi-lang', lang);
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+});
+
+const savedLang = localStorage.getItem('xavvi-lang') || 'zh';
+if (savedLang !== 'zh') applyLang(savedLang);
+</script>
+</body>
+</html>

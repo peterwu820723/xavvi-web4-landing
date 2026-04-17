@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>StarFi 明星基金 × 化妝品品牌合作方案</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#050810;--bg2:#080d1a;--bg3:#0c1224;
+    --blue:#3b82f6;--blue-b:#60a5fa;
+    --purple:#8b5cf6;--purple-b:#a78bfa;
+    --gold:#f59e0b;--green:#10b981;--red:#ef4444;
+    --pink:#ec4899;
+    --text:#e2e8f0;--muted:#94a3b8;
+    --border:rgba(59,130,246,0.15);
+    --radius:14px;
+  }
+  @page{size:A4;margin:0}
+  body{
+    font-family:'Noto Sans TC',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    width:210mm;
+    min-height:297mm;
+    margin:0 auto;
+    font-size:13px;
+    line-height:1.6;
+  }
+
+  /* HEADER */
+  .header{
+    background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(59,130,246,0.1));
+    border-bottom:1px solid rgba(139,92,246,0.3);
+    padding:28px 36px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+  }
+  .header-left .tag{
+    display:inline-block;
+    background:rgba(245,158,11,0.15);
+    border:1px solid rgba(245,158,11,0.4);
+    color:var(--gold);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:0.15em;
+    padding:3px 12px;
+    border-radius:100px;
+    margin-bottom:10px;
+  }
+  .header-left h1{
+    font-size:24px;
+    font-weight:900;
+    line-height:1.2;
+    background:linear-gradient(135deg,#fff,var(--purple-b));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    margin-bottom:6px;
+  }
+  .header-left p{
+    color:var(--muted);
+    font-size:12px;
+  }
+  .header-right{
+    text-align:right;
+  }
+  .header-right .amount{
+    font-family:'Space Grotesk',monospace;
+    font-size:32px;
+    font-weight:900;
+    color:var(--gold);
+    line-height:1;
+  }
+  .header-right .amount-label{
+    font-size:11px;
+    color:var(--muted);
+    margin-top:4px;
+  }
+
+  .body{padding:24px 36px 28px}
+
+  /* CONCEPT BOX */
+  .concept-box{
+    background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(139,92,246,0.06));
+    border:1px solid rgba(245,158,11,0.25);
+    border-radius:var(--radius);
+    padding:18px 22px;
+    margin-bottom:20px;
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+  }
+  .concept-icon{font-size:28px;flex-shrink:0;margin-top:2px}
+  .concept-box h2{font-size:15px;font-weight:800;color:var(--gold);margin-bottom:6px}
+  .concept-box p{font-size:12px;color:var(--muted);line-height:1.75}
+  .concept-box strong{color:var(--text)}
+
+  /* THREE COLS */
+  .cols-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:20px}
+  .col-card{
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:16px;
+  }
+  .col-card .col-icon{font-size:20px;margin-bottom:8px;display:block}
+  .col-card h3{font-size:12px;font-weight:700;color:var(--blue-b);margin-bottom:6px}
+  .col-card p{font-size:11px;color:var(--muted);line-height:1.7}
+  .col-card strong{color:var(--text)}
+
+  /* FLOW */
+  .flow-section{margin-bottom:20px}
+  .flow-section h2{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .flow-section h2::after{content:'';flex:1;height:1px;background:var(--border)}
+  .flow-row{
+    display:flex;
+    align-items:stretch;
+    gap:0;
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    margin-bottom:10px;
+  }
+  .flow-step{
+    flex:1;
+    padding:14px 16px;
+    position:relative;
+    border-right:1px solid var(--border);
+  }
+  .flow-step:last-child{border-right:none}
+  .flow-step::after{
+    content:'→';
+    position:absolute;
+    right:-10px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--gold);
+    font-size:14px;
+    font-weight:700;
+    z-index:1;
+  }
+  .flow-step:last-child::after{display:none}
+  .flow-num{
+    font-family:'Space Grotesk',monospace;
+    font-size:10px;
+    font-weight:700;
+    color:var(--gold);
+    margin-bottom:4px;
+  }
+  .flow-step h4{font-size:12px;font-weight:700;margin-bottom:4px}
+  .flow-step p{font-size:11px;color:var(--muted);line-height:1.6}
+
+  /* RETURNS */
+  .returns-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+  .return-card{
+    background:var(--bg2);
+    border-radius:var(--radius);
+    padding:18px;
+    border:1px solid var(--border);
+  }
+  .return-card.highlight{
+    background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(59,130,246,0.06));
+    border-color:rgba(16,185,129,0.3);
+  }
+  .return-card h3{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.08em;margin-bottom:10px}
+  .return-num{
+    font-family:'Space Grotesk',monospace;
+    font-size:28px;
+    font-weight:900;
+    line-height:1;
+    margin-bottom:4px;
+  }
+  .return-num.green{color:var(--green)}
+  .return-num.gold{color:var(--gold)}
+  .return-num.purple{color:var(--purple-b)}
+  .return-desc{font-size:11px;color:var(--muted);line-height:1.6}
+  .return-desc strong{color:var(--text)}
+
+  /* SCENARIO TABLE */
+  .scenario{
+    background:var(--bg2);
+    border:1px solid rgba(16,185,129,0.2);
+    border-radius:var(--radius);
+    padding:18px 20px;
+    margin-bottom:20px;
+  }
+  .scenario h3{font-size:12px;font-weight:700;color:var(--green);margin-bottom:12px}
+  .scenario table{width:100%;border-collapse:collapse}
+  .scenario th{
+    font-size:10px;font-weight:700;color:var(--muted);
+    letter-spacing:0.08em;text-align:left;
+    padding:6px 10px;border-bottom:1px solid var(--border);
+  }
+  .scenario td{
+    font-size:12px;padding:8px 10px;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+    color:var(--text);
+  }
+  .scenario tr:last-child td{border-bottom:none}
+  .scenario td.good{color:var(--green);font-weight:700;font-family:'Space Grotesk',monospace}
+  .scenario td.gold{color:var(--gold);font-weight:700;font-family:'Space Grotesk',monospace}
+  .scenario td.muted{color:var(--muted)}
+
+  /* BFC USAGE */
+  .bfc-box{
+    background:linear-gradient(135deg,rgba(59,130,246,0.08),rgba(139,92,246,0.06));
+    border:1px solid rgba(59,130,246,0.25);
+    border-radius:var(--radius);
+    padding:16px 20px;
+    margin-bottom:20px;
+    display:flex;
+    gap:20px;
+    align-items:flex-start;
+  }
+  .bfc-box .bfc-left{flex:1}
+  .bfc-box .bfc-right{flex:1}
+  .bfc-box h3{font-size:12px;font-weight:700;color:var(--blue-b);margin-bottom:8px}
+  .bfc-box ul{list-style:none;padding:0}
+  .bfc-box ul li{font-size:11px;color:var(--muted);padding:3px 0;padding-left:14px;position:relative;line-height:1.6}
+  .bfc-box ul li::before{content:'▸';color:var(--gold);position:absolute;left:0}
+  .bfc-box ul li strong{color:var(--text)}
+
+  /* CREDENTIAL */
+  .credential-box{
+    background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(59,130,246,0.06));
+    border:1px solid rgba(16,185,129,0.25);
+    border-radius:var(--radius);
+    padding:16px 22px;
+    margin-bottom:20px;
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+  }
+  .credential-box .cred-icon{font-size:26px;flex-shrink:0;margin-top:2px}
+  .credential-box h2{font-size:13px;font-weight:800;color:var(--green);margin-bottom:8px}
+  .credential-box .cred-stats{display:flex;gap:24px;margin-top:10px;flex-wrap:wrap}
+  .cred-stat{text-align:center}
+  .cred-stat .num{font-family:'Space Grotesk',monospace;font-size:20px;font-weight:900;color:var(--gold);line-height:1}
+  .cred-stat .label{font-size:10px;color:var(--muted);margin-top:3px}
+  .credential-box p{font-size:12px;color:var(--muted);line-height:1.75}
+  .credential-box strong{color:var(--text)}
+
+  /* CREATORS */
+  .creators-section{margin-bottom:20px}
+  .creators-section h2{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .creators-section h2::after{content:'';flex:1;height:1px;background:var(--border)}
+  .creators-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+  .creator-card{
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:12px 8px;
+    text-align:center;
+    transition:border-color 0.2s;
+  }
+  .creator-card:hover{border-color:rgba(139,92,246,0.4)}
+  .creator-avatar{
+    width:52px;height:52px;border-radius:50%;
+    object-fit:cover;
+    margin:0 auto 8px;
+    display:block;
+    border:2px solid rgba(139,92,246,0.3);
+  }
+  .creator-name{font-size:10px;font-weight:700;color:var(--text);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .creator-platform{font-size:9px;color:var(--muted);margin-bottom:4px}
+  .creator-followers{
+    display:inline-block;
+    background:rgba(245,158,11,0.12);
+    border:1px solid rgba(245,158,11,0.3);
+    color:var(--gold);
+    font-size:9px;font-weight:700;
+    padding:2px 7px;border-radius:100px;
+  }
+
+  /* FOOTER */
+  .footer{
+    border-top:1px solid var(--border);
+    padding:16px 36px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .footer-left{font-size:10px;color:var(--muted)}
+  .footer-left strong{color:var(--gold)}
+  .footer-right{
+    display:flex;
+    gap:16px;
+    align-items:center;
+  }
+  .badge{
+    background:rgba(139,92,246,0.12);
+    border:1px solid rgba(139,92,246,0.3);
+    color:var(--purple-b);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:0.1em;
+    padding:3px 10px;
+    border-radius:100px;
+  }
+  .divider{height:1px;background:var(--border);margin:0 36px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="tag">🌟 StarFi 明星基金 × 化妝品品牌專屬方案</div>
+    <h1>把行銷預算變成<br/>永續增值的資產</h1>
+    <p>台灣化妝品品牌 · GP 合作方案 · 2026</p>
+  </div>
+  <div class="header-right">
+    <div class="amount">$100,000</div>
+    <div class="amount-label">USDT 起投金額</div>
+  </div>
+</div>
+
+<div class="body">
+
+  <!-- CONCEPT -->
+  <div class="concept-box">
+    <div class="concept-icon">💡</div>
+    <div>
+      <h2>一句話說清楚這個方案</h2>
+      <p>您原本準備了 <strong>10 萬美金的網紅行銷費用</strong>——花出去就沒了，換來一波流量，不可持續。<br/>
+      現在，把這筆錢投入 StarFi 明星基金成為 <strong>GP 合夥人</strong>，每個月領取 <strong>BFC 廣告幣</strong>作為分潤。<br/>
+      用這些 BFC 長期投放全球明星網紅，<strong>行銷費用變成資產，資產持續生息，流量永不斷線。</strong></p>
+    </div>
+  </div>
+
+  <!-- 3 COLS: 三個角色 -->
+  <div class="cols-3">
+    <div class="col-card">
+      <span class="col-icon">🎰</span>
+      <h3>BFC = 賭場籌碼</h3>
+      <p>進入 Xavvi 網紅生態，必須先把 USDT 換成 <strong>BFC 廣告幣</strong>。所有賭客（品牌＋粉絲）兌換的 USDT 全數保留底池，隨時支援 BFC 以 <strong>8 折市價</strong>兌回。</p>
+    </div>
+    <div class="col-card">
+      <span class="col-icon">🃏</span>
+      <h3>每張賭桌 = 一位網紅</h3>
+      <p>每位網紅對應一張賭桌，由其 <strong>AI 數字分身</strong> 24/7 坐莊。品牌把 BFC 投入指定網紅桌，AI 自動代言、推廣、出單，<strong>網紅拿 70%、平台 15%、15% 永久銷毀</strong>。</p>
+    </div>
+    <div class="col-card">
+      <span class="col-icon">📈</span>
+      <h3>TDA = 網紅資產幣</h3>
+      <p>每位網紅發行個人 <strong>TDA 數據資產幣</strong>，總量 1 億永不增發。商家每次投廣告後 TDA 立即銷毀，<strong>持續通縮 → 幣價只漲不跌</strong>，粉絲＋品牌雙向消耗。</p>
+    </div>
+  </div>
+
+  <!-- FLOW -->
+  <div class="flow-section">
+    <h2>資金流向</h2>
+    <div class="flow-row">
+      <div class="flow-step">
+        <div class="flow-num">STEP 01</div>
+        <h4>投入底池</h4>
+        <p>10萬 USDT 注入StarFi基金底池，放入 PancakeSwap 流動性池</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">STEP 02</div>
+        <h4>做市獲利</h4>
+        <p>基金以 $0.1 成本承銷 TDA 網紅幣，市場 60 天內賣出，均價 $0.1–$2</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">STEP 03</div>
+        <h4>GP 分潤</h4>
+        <p>每月結算，超額利潤依 GP 份額分配 <strong>BFC 廣告幣</strong>至您帳戶</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">STEP 04</div>
+        <h4>投放流量</h4>
+        <p>用 BFC 指定全球明星網紅，AI 數字分身 24/7 為您的化妝品持續代言</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETURNS -->
+  <div class="returns-grid">
+    <div class="return-card highlight">
+      <h3>基金 90 天預期回報</h3>
+      <div class="return-num green">100–300%</div>
+      <div class="return-desc">年化複利保守估計約 <strong>12.9 倍</strong>。<br/>最差情況：底池全額退回，本金 100% 保底。</div>
+    </div>
+    <div class="return-card">
+      <h3>GP 分潤結構</h3>
+      <div class="return-num gold">40%</div>
+      <div class="return-desc">超額利潤中 GP 整體享有 <strong>40%</strong>。<br/>優先返還 LP 100% 本金後，再依 GP 份額比例分配 BFC。月度發放，季度結算。</div>
+    </div>
+  </div>
+
+  <!-- SCENARIO -->
+  <div class="scenario">
+    <h3>📊 收益情境試算（以 $100,000 USDT 投入為例）</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>情境</th>
+          <th>60 天 TDA 銷售均價</th>
+          <th>基金淨利潤</th>
+          <th>GP 整體分潤 (40%)</th>
+          <th>分潤用途</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="muted">最差情況</td>
+          <td class="muted">0 個幣賣出</td>
+          <td class="muted">—</td>
+          <td class="muted">底池全額退回</td>
+          <td class="muted">本金 100% 保底</td>
+        </tr>
+        <tr>
+          <td>保守情境</td>
+          <td>$0.3 均價</td>
+          <td class="gold">~$60萬</td>
+          <td class="gold">~$24萬 BFC</td>
+          <td>持續投放美妝網紅</td>
+        </tr>
+        <tr>
+          <td>標準情境</td>
+          <td>$0.5 均價</td>
+          <td class="good">~$160萬</td>
+          <td class="good">~$64萬 BFC</td>
+          <td>全球明星代言 + 品牌擴張</td>
+        </tr>
+        <tr>
+          <td>樂觀情境</td>
+          <td>$1.0 均價</td>
+          <td class="good">~$360萬</td>
+          <td class="good">~$144萬 BFC</td>
+          <td>長期佔據頂級流量資源</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- XAVVI CREDENTIAL -->
+  <div class="credential-box">
+    <div class="cred-icon">🏆</div>
+    <div style="flex:1">
+      <h2>Xavvi — 英國 TikTok 流量服務商第一名</h2>
+      <p>Xavvi 是全球頂尖的 AI 網紅流量管理平台，在英國 TikTok 生態擁有最強的流量運營能力。<br/>
+      曾為 <strong>歐萊雅集團（L'Oréal Group）</strong> 操盤英國 TikTok 小店，單月創造 <strong>800 萬英鎊業績</strong>，成為英國 TikTok 美妝電商的標竿案例。</p>
+      <div class="cred-stats">
+        <div class="cred-stat"><div class="num">#1</div><div class="label">英國 TikTok 流量服務商</div></div>
+        <div class="cred-stat"><div class="num">£800萬</div><div class="label">歐萊雅單月 TikTok 業績</div></div>
+        <div class="cred-stat"><div class="num">10,000+</div><div class="label">全球簽約網紅</div></div>
+        <div class="cred-stat"><div class="num">24/7</div><div class="label">AI 數字分身全天候代言</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNED CREATORS -->
+  <div class="creators-section">
+    <h2>部分簽約網紅</h2>
+    <div class="creators-grid">
+      <div class="creator-card">
+        <img class="creator-avatar" src="https://sspark.genspark.ai/cfimages?u1=mWqEaQaASryn%2BnbDVQRIsmOBOUuZn68GQZQqlKSDDeDAN36622g2V7CDFfUj7OuRilZbYlhqjw%2Fg0uQTl7zMGBcRJJgg2AngSOuElCoygcsS3K%2B5DS4XeQ62VISthuFOsGw%3D&u2=63jZ2VKI4PejbH5f&width=2560" alt="Joey Reed"/>
+        <div class="creator-name">Joey Reed</div>
+        <div class="creator-platform">TikTok · Instagram</div>
+        <span class="creator-followers">TT 5M+</span>
+      </div>
+      <div class="creator-card">
+        <img class="creator-avatar" src="https://sspark.genspark.ai/cfimages?u1=Ot8tHtb4lP7kAHe7J5Ns5KvDShoBElkmpwetaG8eB9J7RIUeK54WsOwRtL1PfPNTx3F4PFYOgDro9Jn%2BoNkRMFooj7gP3KGeCTcZWNaeUUMaNTPuOTV%2FUs%2FR79NizZyADR4%3D&u2=V6viU0dUXexcq0UE&width=2560" alt="Luwucifer"/>
+        <div class="creator-name">Luwucifer</div>
+        <div class="creator-platform">TikTok · Instagram</div>
+        <span class="creator-followers">TT 1M+</span>
+      </div>
+      <div class="creator-card">
+        <img class="creator-avatar" src="https://sspark.genspark.ai/cfimages?u1=wazvs%2B3L64L1l6%2F7eXeRHbS1EP7R1t73qEg%2BahZndPrbHbydjISgLqvKosAk2uAn1Uwd4NJ6%2BHmetoYFMRfuxz1ZAus%2FtETTeLon%2BuF4bCU%2BC%2BQIn7484irCtVPClNDub8mlT0aJV3jtF6Ee%2FU8%3D&u2=cyadvDQ4VtqHfRUm&width=2560" alt="Derek Fry"/>
+        <div class="creator-name">Derek Fry</div>
+        <div class="creator-platform">TikTok · Instagram</div>
+        <span class="creator-followers">TT 1M+</span>
+      </div>
+      <div class="creator-card">
+        <img class="creator-avatar" src="https://sspark.genspark.ai/cfimages?u1=kgdlxVl5hVx2QS6vuDI440PNrgVT%2F8Jvm9YDhGvIqzsR6DMaBl1hVEb6C7Qdzopk5%2FW2PKO5X%2FZXaxcZiarup5vJ06rEMKbgZN3%2Fef0qi4vIMyNNi%2FgRFmvzBDLSx%2BT3Hw%3D%3D&u2=UP%2F1u%2FbE669vutsY&width=2560" alt="Sal Abonce"/>
+        <div class="creator-name">Sal Abonce</div>
+        <div class="creator-platform">YouTube · TikTok</div>
+        <span class="creator-followers">YT 1M+</span>
+      </div>
+      <div class="creator-card">
+        <img class="creator-avatar" src="https://sspark.genspark.ai/cfimages?u1=%2BgOuOGtowwol9E3pT5lZ1%2BTF2VNVvOhS6zT31UN8eQORZRJ8GVgSZdrQRgkML5T5Ix23mQmChRiVMAqPfEk76pqeKUYf4I%2F1%2FjZRX09%2F9qIbF8BVzKCYvGqgZbPSgCEm7KU%3D&u2=fTD6lSPVU0wrzfCM&width=2560" alt="@iyyyaannaa"/>
+        <div class="creator-name">@iyyyaannaa</div>
+        <div class="creator-platform">Instagram · TikTok</div>
+        <span class="creator-followers">IG 100K+</span>
+      </div>
+      <div class="creator-card">
+        <img class="creator-avatar" src="https://sspark.genspark.ai/cfimages?u1=lOvHNPl8NpoR7%2FqPB1mFEGyBAFu3CP8UeM6ZGD2Uvlz6%2Fz7LVXJJAQ4fBeeOwVywi6EgqPmZbH48sv9u3r4zjMwdFEcY0pKVe4Oajp8iJjii4LPYGEeBiFTtwPeBIn%2BSepPj&u2=M8fosJ%2FopIhXHgXS&width=2560" alt="lowkeyluke"/>
+        <div class="creator-name">lowkeyluke</div>
+        <div class="creator-platform">TikTok · Instagram</div>
+        <span class="creator-followers">TT 100K+</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BFC USAGE -->
+  <div class="bfc-box">
+    <div class="bfc-left">
+      <h3>🎯 BFC 分潤如何為品牌持續創造價值</h3>
+      <ul>
+        <li>每月領取 BFC 廣告幣，<strong>直接用於投放</strong>全球美妝類網紅</li>
+        <li>指定 AI 數字分身 24/7 為您的產品創作內容、帶貨直播</li>
+        <li>一次投資，<strong>永續收到流量分潤</strong>，不需要每次重新預算</li>
+        <li>BFC 具市場流動性，可選擇<strong>持幣升值</strong>或直接投放</li>
+      </ul>
+    </div>
+    <div class="bfc-right">
+      <h3>🛡️ 風控與合規保障</h3>
+      <ul>
+        <li><strong>三方聯合擔保</strong>：Xavvi + BFC 基金會 + StarFi</li>
+        <li><strong>雙層法律架構</strong>：BVI SPV + 美國德拉瓦州基金會</li>
+        <li><strong>100% 保底機制</strong>：底池資金從未動用，隨時可退</li>
+        <li>美國明星幣發行<strong>合規不歸 SEC 監管</strong></li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- /body -->
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-left">
+    <strong>StarFi 明星基金</strong> · Xavvi Platform · BVI SPV + Delaware Foundation<br/>
+    聯絡洽談：peter@xavvi.com · 最低起投 $100,000 USDT · KYC/AML 實名認證
+  </div>
+  <div class="footer-right">
+    <span class="badge">GP 合夥方案</span>
+    <span class="badge">月度分潤</span>
+    <span class="badge">BFC 廣告幣</span>
+  </div>
+</div>
+
+</body>
+</html>
