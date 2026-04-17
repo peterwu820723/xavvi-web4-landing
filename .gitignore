@@ -1,0 +1,10 @@
+# Large video files (use CDN instead)
+*.mp4
+*.webm
+*.mov
+# Keep seedance generated clips
+seedance_xavvi/
+videos/
+# Temp files
+*.log
+__pycache__/
